@@ -27,6 +27,7 @@ const UserSchema = new Schema({
         default: "",
     }
 });
+UserSchema.path("_id").ref("User");
 
 
 module.exports = mongoose.model("User", UserSchema);
