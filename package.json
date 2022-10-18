@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "nodemon --inspect myApp/app.js",
-    "start:dev":"nodemon --inspect myApp/app.js",
+    "start:dev": "nodemon --inspect myApp/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -28,10 +28,10 @@
     "heroku": "^7.65.0",
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^4.10.0",
-    "mongoose": "^6.6.4",
-    "nodemon": "^2.0.20"
+    "mongoose": "^6.6.4"
   },
   "dependencies": {
-    "joi": "^17.6.2"
+    "joi": "^17.6.2",
+    "nodemon": "^2.0.20"
   }
 }
