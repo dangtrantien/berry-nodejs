@@ -1,9 +1,8 @@
 const express = require("express");
 const path = require("path");
-const cors = require("cors");
 const app = express();
 const port = 3002;
-const Router=require('./router/index')
+const Router = require("./router/index");
 
 const database = require("./DAL/database");
 const mongodb = new database();
@@ -13,11 +12,8 @@ app.use(express.urlencoded({ extended: true, limit: "50mb" }));
 app.use(express.json({ limit: "50mb" }));
 
 //Route init
-app.get("/", (req, res, next) => {
-  res.send("This is homepage");
-  next();
-});
-Router(app)
+Router(app);
+
 app.listen(port, () => {
   console.log(`App listening on port ${port}`);
 
