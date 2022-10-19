@@ -34,10 +34,10 @@ const UserSchema = new Schema({
     workSpaces:{
         type:Array,
         value:WorkSpaceSchema
-    }
-}
-);
-UserSchema.path("_id").ref("User");
-
+    },
+  lastUpdatedDate: {
+    type: String,
+  },
+});
 
 module.exports = mongoose.model("User", UserSchema);
