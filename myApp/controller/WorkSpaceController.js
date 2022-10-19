@@ -5,7 +5,7 @@ class WorkSpaceController {
     createWorkSpace = async (req, res) => {
         const newWorkSpace = new WorkSpaceModel();
         newWorkSpace.name = req.body.name;
-       
+        newWorkSpace.userID = req.body.userID;
         const workSpace = await newWorkSpace.save();
         res.send(workSpace);
     }
