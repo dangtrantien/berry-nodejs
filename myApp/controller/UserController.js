@@ -1,5 +1,7 @@
+const obj = require("mongodb").ObjectId;
 const { userUpdateValidate } = require("../middleware/Validate.js");
 const UserModel = require("../model/UserModel.js");
+
 class UserController {
     createUser = async (req, res) => {
         const newUser = new UserModel();
@@ -31,6 +33,44 @@ class UserController {
             }
         });
     };
+
+    getAllWorkSpacesOfAllUsers = async (req, res) => {
+        const agg = [
+            {
+                $lookup: {
+                    from: "workspaces",
+                    localField: "_id",
+                    foreignField: "userID",
+                    as: "workSpaces"
+                }
+            }
+        ]
+        var result = await UserModel.aggregate(agg)
+        res.send(result)
+        res.send(result.length)
+
+    };
+
+    // getAllWorkSpaceOfUser = async (req, res) => {
+    //     var userid= new obj(req.query.id)
+    //     const agg = [
+    //         {
+    //             $lookup: {
+    //                 from: "workspaces",
+    //                 localField: "_id",
+    //                 foreignField: "userID",
+    //                 as: "workSpaces"
+    //             }
+    //         }  ,
+    //         {
+    //             $match: { _id: userid},
+    //         }
+            
+    //     ]
+    //     var result = await UserModel.aggregate(agg)
+    //     res.send(result)
+    // };
+
     updateUserById = (req, res) => {
         const { value, error } = userUpdateValidate(req.body);
         if (error) return res.status(400).send(error.details[0].message);

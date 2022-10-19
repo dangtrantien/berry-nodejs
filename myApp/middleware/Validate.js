@@ -13,6 +13,8 @@ const userUpdateValidate=(data)=>{
 const workSpaceUpdateValidate=(data)=>{
     const schema=Joi.object({
         name:Joi.string().min(3),
+        userID:Joi.string().min(3),
+
        
     });
     return schema.validate(data)

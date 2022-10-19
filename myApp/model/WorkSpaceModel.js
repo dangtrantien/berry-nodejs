@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const WorkSpaceSchema = new Schema({
      // _id: mongoose.ObjectId,
-    user: {
+    userID: {
         type: mongoose.ObjectId,
         ref: "User",
         required: true,
@@ -12,6 +12,7 @@ const WorkSpaceSchema = new Schema({
         type: String,
         required: true,
     },
+
     
 });
 WorkSpaceSchema.path("_id").ref("WorkSpace")

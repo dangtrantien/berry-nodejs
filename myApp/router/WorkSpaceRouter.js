@@ -8,7 +8,11 @@ WorkSpaceRouter.get("/", workSpaceController.getAllWorkSpaces);
 WorkSpaceRouter.get("/:id", workSpaceController.getWorkSpaceById);
 WorkSpaceRouter.post("/createWorkSpace", workSpaceController.createWorkSpace);
 
+
 WorkSpaceRouter.put("/:id", workSpaceController.updateWorkSpaceById);
 WorkSpaceRouter.delete("/:id", workSpaceController.deleteWorkSpaceById);
+
+
+
 
 module.exports=WorkSpaceRouter 

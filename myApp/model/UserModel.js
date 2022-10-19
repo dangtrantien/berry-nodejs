@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const WorkSpaceSchema=require("./WorkSpaceModel");
 
 const UserSchema = new Schema({
     name: {
@@ -19,14 +20,23 @@ const UserSchema = new Schema({
         // required: true,
     },
     address: {
-        type:String,
+        type: String,
         // required:true
     },
     avatar: {
         type: String, // URL only
         default: "",
+    },
+    // workSpaces:[WorkSpaceSchema]
+
+    // workSpaces:Array.of(WorkSpaceSchema)
+    //or
+    workSpaces:{
+        type:Array,
+        value:WorkSpaceSchema
     }
-});
+}
+);
 UserSchema.path("_id").ref("User");
 
 
