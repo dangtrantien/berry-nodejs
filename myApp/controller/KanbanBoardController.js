@@ -20,7 +20,7 @@ class KanbanBoardController {
         });
     };
     getKanbanBoardById = (req, res) => {
-        KanbanBoardModel.find({ _id: req.params.id }).exec((err, kanbanBoard) => {
+        KanbanBoardModel.find({ _id: req.query.id }).exec((err, kanbanBoard) => {
             if (err) {
                 res.send("Khong the lay thong tin kanbanBoard");
             } else {
@@ -35,7 +35,7 @@ class KanbanBoardController {
         if (error) return res.status(400).send(error.details[0].message);
 
         KanbanBoardModel.findOneAndUpdate(
-            { _id: req.params.id },
+            { _id: req.query.id },
             value,
             { new: true },
             (err) => {
@@ -48,7 +48,7 @@ class KanbanBoardController {
         );
     };
     deleteKanbanBoardById = (req, res) => {
-        KanbanBoardModel.findOneAndDelete({ _id: req.params.id }, (err) => {
+        KanbanBoardModel.findOneAndDelete({ _id: req.query.id }, (err) => {
             if (err) {
                 res.send("Da co loi xay ra khi delete KanbanBoard");
             } else {

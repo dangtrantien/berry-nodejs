@@ -23,7 +23,7 @@ class UserController {
         });
     };
     getUserById = (req, res) => {
-        UserModel.find({ _id: req.params.id }).exec((err, user) => {
+        UserModel.find({ _id: req.query.id }).exec((err, user) => {
             if (err) {
                 res.send("Khong the lay thong tin user");
             } else {
@@ -76,7 +76,7 @@ class UserController {
         if (error) return res.status(400).send(error.details[0].message);
 
         UserModel.findOneAndUpdate(
-            { _id: req.params.id },
+            { _id: req.query.id },
             value,
             { new: true },
             (err) => {
@@ -89,7 +89,7 @@ class UserController {
         );
     };
     deleteUserById = (req, res) => {
-        UserModel.findOneAndDelete({ _id: req.params.id }, (err) => {
+        UserModel.findOneAndDelete({ _id: req.query.id }, (err) => {
             if (err) {
                 res.send("Da co loi xay ra khi delete user");
             } else {

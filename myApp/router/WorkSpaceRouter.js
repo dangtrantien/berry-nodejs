@@ -1,18 +1,13 @@
-const  express=require("express");
-const WorkSpaceRouter=express.Router()
-const WorkSpaceController=require("../controller/WorkSpaceController.js")
+const express = require("express");
+const WorkSpaceRouter = express.Router()
+const WorkSpaceController = require("../controller/WorkSpaceController.js")
 
-const workSpaceController= new WorkSpaceController();
+const workSpaceController = new WorkSpaceController();
 
 WorkSpaceRouter.get("/", workSpaceController.getAllWorkSpaces);
-WorkSpaceRouter.get("/:id", workSpaceController.getWorkSpaceById);
+WorkSpaceRouter.get("/getWorkSpaceById", workSpaceController.getWorkSpaceById);
 WorkSpaceRouter.post("/createWorkSpace", workSpaceController.createWorkSpace);
+WorkSpaceRouter.put("/updateWorkSpaceById", workSpaceController.updateWorkSpaceById);
+WorkSpaceRouter.delete("/deleteWorkSpaceById", workSpaceController.deleteWorkSpaceById);
 
-
-WorkSpaceRouter.put("/:id", workSpaceController.updateWorkSpaceById);
-WorkSpaceRouter.delete("/:id", workSpaceController.deleteWorkSpaceById);
-
-
-
-
-module.exports=WorkSpaceRouter 
+module.exports = WorkSpaceRouter 

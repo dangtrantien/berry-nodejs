@@ -21,7 +21,7 @@ class WorkSpaceController {
         });
     };
     getWorkSpaceById = (req, res) => {
-        WorkSpaceModel.find({ _id: req.params.id }).exec((err, workSpace) => {
+        WorkSpaceModel.find({ _id: req.query.id }).exec((err, workSpace) => {
             if (err) {
                 res.send("Khong the lay thong tin workSpace");
             } else {
@@ -37,7 +37,7 @@ class WorkSpaceController {
         if (error) return res.status(400).send(error.details[0].message);
 
         WorkSpaceModel.findOneAndUpdate(
-            { _id: req.params.id },
+            { _id: req.query.id },
             value,
             { new: true },
             (err) => {
@@ -50,7 +50,7 @@ class WorkSpaceController {
         );
     };
     deleteWorkSpaceById = (req, res) => {
-        WorkSpaceModel.findOneAndDelete({ _id: req.params.id }, (err) => {
+        WorkSpaceModel.findOneAndDelete({ _id: req.query.id }, (err) => {
             if (err) {
                 res.send("Da co loi xay ra khi delete WorkSpace");
             } else {
