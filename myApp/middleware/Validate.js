@@ -10,6 +10,25 @@ const userUpdateValidate=(data)=>{
     });
     return schema.validate(data)
 }
+const workSpaceUpdateValidate=(data)=>{
+    const schema=Joi.object({
+        name:Joi.string().min(3),
+        userID:Joi.string().min(3),
+
+       
+    });
+    return schema.validate(data)
+}
+const kanbanBoardUpdateValidate=(data)=>{
+    const schema=Joi.object({
+        name:Joi.string().min(3),
+       
+    });
+    return schema.validate(data)
+}
+
 module.exports={
-    userUpdateValidate
+    userUpdateValidate,
+    workSpaceUpdateValidate,
+    kanbanBoardUpdateValidate
 }
