@@ -4,7 +4,8 @@ class KanbanBoardController {
     createKanbanBoard = async (req, res) => {
         const newKanbanBoard = new KanbanBoardModel();
         newKanbanBoard.name = req.body.name;
-       
+        newKanbanBoard.workSpaceID = req.body.workSpaceID;
+
         const kanbanBoard = await newKanbanBoard.save();
         res.send(kanbanBoard);
     }
@@ -55,6 +56,21 @@ class KanbanBoardController {
                 res.send("Xoa KanbanBoard thanh cong");
             }
         });
+    };
+    getAllTicketsOfAllKanbanBoards = async (req, res) => {
+        const agg = [
+            {
+                $lookup: {
+                    from: "kanbanBoards",
+                    localField: "_id",
+                    foreignField: "kanbanBoardID",
+                    as: "tickets"
+                }
+            }
+        ]
+        var result = await TicketModel.aggregate(agg)
+        res.send(result)
+        res.send(result.length)
     };
   
 

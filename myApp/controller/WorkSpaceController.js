@@ -5,7 +5,7 @@ class WorkSpaceController {
     createWorkSpace = async (req, res) => {
         const newWorkSpace = new WorkSpaceModel();
         newWorkSpace.name = req.body.name;
-       
+        newWorkSpace.userID = req.body.userID;
         const workSpace = await newWorkSpace.save();
         res.send(workSpace);
     }
@@ -19,6 +19,21 @@ class WorkSpaceController {
                 res.json(workSpaces);
             }
         });
+    };
+    getAllKanbanBoardOfAllWorkSpaces = async (req, res) => {
+        const agg = [
+            {
+                $lookup: {
+                    from: "kanbanboards",
+                    localField: "_id",
+                    foreignField: "workSpaceID",
+                    as: "workSpaces"
+                }
+            }
+        ]
+        var result = await UserModel.aggregate(agg)
+        res.send(result)
+        res.send(result.length)
     };
     getWorkSpaceById = (req, res) => {
         WorkSpaceModel.find({ _id: req.query.id }).exec((err, workSpace) => {
