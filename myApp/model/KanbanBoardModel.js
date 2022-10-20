@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const TicketSchema = require("./TicketModel");
 const Schema = mongoose.Schema;
 
 const KanbanBoardSchema = new Schema({
@@ -8,17 +9,22 @@ const KanbanBoardSchema = new Schema({
         ref: "User",
         required: true,
     },
-    kanbanBoard: {
-        type: mongoose.ObjectId,
-        ref: "WorkSpace",
-        required: true,
+    workSpaceID:{
+        type:mongoose.ObjectId,
+        ref:"WorkSpace",
+        required:true
     },
-
     name: {
         type: String,
         required: true,
     },
+    tickets:{
+        type:Array,
+        value:TicketSchema
+    }
     
 });
+KanbanBoardSchema.path("_id").ref("KanbanBoard")
+
 
 module.exports = mongoose.model("KanbanBoard", KanbanBoardSchema);

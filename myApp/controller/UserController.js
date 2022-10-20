@@ -48,7 +48,6 @@ class UserController {
         var result = await UserModel.aggregate(agg)
         res.send(result)
         res.send(result.length)
-
     };
 
     // getAllWorkSpaceOfUser = async (req, res) => {

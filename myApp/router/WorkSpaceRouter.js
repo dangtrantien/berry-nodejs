@@ -6,6 +6,8 @@ const workSpaceController = new WorkSpaceController();
 
 WorkSpaceRouter.get("/", workSpaceController.getAllWorkSpaces);
 WorkSpaceRouter.get("/getWorkSpaceById", workSpaceController.getWorkSpaceById);
+
+WorkSpaceRouter.get("/getAllKanbanBoardOfAllWorkSpaces", workSpaceController.getAllKanbanBoardOfAllWorkSpaces);
 WorkSpaceRouter.post("/createWorkSpace", workSpaceController.createWorkSpace);
 WorkSpaceRouter.put("/updateWorkSpaceById", workSpaceController.updateWorkSpaceById);
 WorkSpaceRouter.delete("/deleteWorkSpaceById", workSpaceController.deleteWorkSpaceById);

@@ -20,6 +20,21 @@ class WorkSpaceController {
             }
         });
     };
+    getAllKanbanBoardOfAllWorkSpaces = async (req, res) => {
+        const agg = [
+            {
+                $lookup: {
+                    from: "kanbanboards",
+                    localField: "_id",
+                    foreignField: "workSpaceID",
+                    as: "workSpaces"
+                }
+            }
+        ]
+        var result = await UserModel.aggregate(agg)
+        res.send(result)
+        res.send(result.length)
+    };
     getWorkSpaceById = (req, res) => {
         WorkSpaceModel.find({ _id: req.query.id }).exec((err, workSpace) => {
             if (err) {

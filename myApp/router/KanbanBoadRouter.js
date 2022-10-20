@@ -10,5 +10,7 @@ KanbanBoardRouter.post("/createKanbanBoard", kanbanBoardController.createKanbanB
 
 KanbanBoardRouter.put("/updateKanbanBoardById", kanbanBoardController.updateKanbanBoardById);
 KanbanBoardRouter.delete("/deleteKanbanBoardById", kanbanBoardController.deleteKanbanBoardById);
+KanbanBoardRouter.delete("/getAllTicketsOfAllKanbanBoards", kanbanBoardController.getAllTicketsOfAllKanbanBoards);
+
 
 module.exports = KanbanBoardRouter;
