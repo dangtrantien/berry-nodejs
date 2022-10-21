@@ -14,7 +14,7 @@ class WorkSpaceModel extends BaseModel {
           from: "kanbanboards",
           localField: "_id",
           foreignField: "workSpaceID",
-          as: "workSpaces",
+          as: "kanbanBoards",
         },
       },
     ];

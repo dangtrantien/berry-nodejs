@@ -64,7 +64,7 @@ class KanbanBoardController {
   };
 
   getAllTicketsOfAllKanbanBoards = async (req, res) => {
-    const data = await kanbanBoardModel.workSpaceAggregate();
+    const data = await kanbanBoardModel.ticketAggregate();
     res.json({ length: data.length, data: data });
   };
 }

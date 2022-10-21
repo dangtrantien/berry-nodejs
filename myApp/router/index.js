@@ -12,7 +12,7 @@ const router = (app) => {
   app.use("/api/users", cors(), UserRouter);
   app.use("/api/workSpaces", cors(), WorkSpaceRouter);
   app.use("/api/kanbanBoards", cors(), KanbanBoadRouter);
-  app.use("api/tickets", cors(), TicketRouter);
+  app.use("/api/tickets", cors(), TicketRouter);
 };
 
 module.exports = router;
