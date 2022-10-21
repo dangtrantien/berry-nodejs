@@ -22,11 +22,11 @@ class UserController {
     //     password
     // }
 
-    //Check email exist in db
+    // //Check email exist in db
     userModel
       .findByEmailAndPassword(newUser.email, newUser.password)
       .then((emailExists) => {
-        if (emailExists) res.status(400).send("Email exists in db");
+        if (emailExists.length > 0) res.status(400).send("Email exists in db");
         else {
           userModel
             .createNew(newUser)
@@ -123,7 +123,7 @@ class UserController {
   // };
 
   updateUserById = async (req, res) => {
-    const { user, error } = userUpdateValidate(req.body.user);
+    const { value, error } = userUpdateValidate(req.body);
     if (error) return res.status(400).send(error.details[0].message);
 
     // UserModel.findOneAndUpdate(
@@ -142,22 +142,25 @@ class UserController {
     const id = req.query.id;
 
     //Tải avatar cho user
-    let uploadImage = await upload(user.avatar);
+    if (value.avatar) {
+      let uploadImage = await upload(value.avatar);
 
-    let img = {
-      url: `http://localhost:3002/static/images/${Date.now()}-image.png`,
-      data: fs.writeFile(
-        path.join(`./myApp/public/images/${Date.now()}-image.png`),
-        uploadImage.data,
-        function (err) {
-          if (err) throw err;
-        }
-      ),
-    };
+      let img = {
+        url: `http://x-career-06-team1-be.herokuapp.com/static/images/${Date.now().toString()}-image.png`,
+        // url: `http://localhost:3002/static/images/${Date.now().toString()}-image.png`,
+        data: fs.writeFile(
+          path.join(`./myApp/public/images/${Date.now().toString()}-image.png`),
+          uploadImage.data,
+          function (err) {
+            if (err) throw err;
+          }
+        ),
+      };
 
-    user.avatar = img.url;
+      value.avatar = img.url;
+    }
 
-    const result = await userModel.update(id, user);
+    const result = await userModel.update(id, value);
 
     if (result) res.send({ success: true, message: "Succesfully updated" });
     else

@@ -31,7 +31,7 @@ class WorkSpaceController {
   };
 
   getAllKanbanBoardOfAllWorkSpaces = async (req, res) => {
-    const data = await workspaceModel.workSpaceAggregate();
+    const data = await workspaceModel.kanbanBoardAggregate();
     res.json({ length: data.length, data: data });
   };
 

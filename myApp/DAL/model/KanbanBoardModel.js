@@ -11,7 +11,7 @@ class KanbanBoardModel extends BaseModel {
     const agg = [
       {
         $lookup: {
-          from: "kanbanBoards",
+          from: "tickets",
           localField: "_id",
           foreignField: "kanbanBoardID",
           as: "tickets",

@@ -22,7 +22,7 @@ KanbanBoardRouter.delete(
   "/deleteKanbanBoardById",
   kanbanBoardController.deleteKanbanBoardById
 );
-KanbanBoardRouter.delete(
+KanbanBoardRouter.get(
   "/getAllTicketsOfAllKanbanBoards",
   kanbanBoardController.getAllTicketsOfAllKanbanBoards
 );

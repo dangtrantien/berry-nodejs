@@ -8,7 +8,7 @@ const Router = require("./router/index");
 const database = require("./DAL/database");
 const mongodb = new database();
 
-app.use("static", express.static(path.join(__dirname, "public")));
+app.use("/static", express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true, limit: "50mb" }));
 app.use(express.json({ limit: "50mb" }));
 
