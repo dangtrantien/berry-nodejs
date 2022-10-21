@@ -16,20 +16,8 @@ app.use(express.json({ limit: "50mb" }));
 Router(app);
 
 // //localhost:3002
-app.listen(port, () => {
-  console.log(`App listening on port ${port}`);
-
-  //Connect to mongoDB
-  mongodb.connect().then((err, res) => {
-    if (err) throw err;
-    console.log("Successfully connect to mongoDB");
-  });
-});
-
-
-//https://x-career-06-team1-be.herokuapp.com/
-// app.listen(PORT, () => {
-//   console.log(`App listening on PORT ${PORT}`);
+// app.listen(port, () => {
+//   console.log(`App listening on port ${port}`);
 
 //   //Connect to mongoDB
 //   mongodb.connect().then((err, res) => {
@@ -37,3 +25,14 @@ app.listen(port, () => {
 //     console.log("Successfully connect to mongoDB");
 //   });
 // });
+
+//https://x-career-06-team1-be.herokuapp.com/
+app.listen(PORT, () => {
+  console.log(`App listening on PORT ${PORT}`);
+
+  //Connect to mongoDB
+  mongodb.connect().then((err, res) => {
+    if (err) throw err;
+    console.log("Successfully connect to mongoDB");
+  });
+});
