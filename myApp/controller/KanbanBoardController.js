@@ -61,9 +61,9 @@ class KanbanBoardController {
         const agg = [
             {
                 $lookup: {
-                    from: "kanbanBoards",
+                    from: "tickets",
                     localField: "_id",
-                    foreignField: "kanbanBoardID",
+                    foreignField: "ticketID",
                     as: "tickets"
                 }
             }

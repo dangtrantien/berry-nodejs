@@ -27,7 +27,7 @@ class WorkSpaceController {
                     from: "kanbanboards",
                     localField: "_id",
                     foreignField: "workSpaceID",
-                    as: "workSpaces"
+                    as: "kanbanBoards"
                 }
             }
         ]
