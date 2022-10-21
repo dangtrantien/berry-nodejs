@@ -1,80 +1,72 @@
 const { workSpaceUpdateValidate } = require("../middleware/Validate.js");
-const WorkSpaceModel = require("../model/WorkSpaceModel.js");
+const WorkSpaceModel = require("../DAL/model/WorkSpaceModel");
+
+const workspaceModel = new WorkSpaceModel();
+
 // id, userid,workSpacename
 class WorkSpaceController {
-    createWorkSpace = async (req, res) => {
-        const newWorkSpace = new WorkSpaceModel();
-        newWorkSpace.name = req.body.name;
-        newWorkSpace.userID = req.body.userID;
-        const workSpace = await newWorkSpace.save();
-        res.send(workSpace);
-    }
-    getAllWorkSpaces = (req, res) => {
-        WorkSpaceModel.find().exec((err, workSpaces) => {
-            if (err) {
-                res.send("Khong the lay thong tin workSpaces");
-            } else {
-                // console.log("Lay thanh cong thong tin tat ca workSpaces");
-                // console.log(workSpaces);
-                res.json(workSpaces);
-            }
-        });
-    };
-    getAllKanbanBoardOfAllWorkSpaces = async (req, res) => {
-        const agg = [
-            {
-                $lookup: {
-                    from: "kanbanboards",
-                    localField: "_id",
-                    foreignField: "workSpaceID",
-                    as: "workSpaces"
-                }
-            }
-        ]
-        var result = await UserModel.aggregate(agg)
-        res.send(result)
-        res.send(result.length)
-    };
-    getWorkSpaceById = (req, res) => {
-        WorkSpaceModel.find({ _id: req.query.id }).exec((err, workSpace) => {
-            if (err) {
-                res.send("Khong the lay thong tin workSpace");
-            } else {
-                // console.log("Lay thanh cong thong tin workSpace");
-                // console.log(workSpace);
-                res.json(workSpace);
-            }
-        });
-    };
-   
-    updateWorkSpaceById = (req, res) => {
-        const { value, error } = workSpaceUpdateValidate(req.body);
-        if (error) return res.status(400).send(error.details[0].message);
+  createWorkSpace = async (req, res) => {
+    const newWorkSpace = req.body.newWorkSpace;
 
-        WorkSpaceModel.findOneAndUpdate(
-            { _id: req.query.id },
-            value,
-            { new: true },
-            (err) => {
-                if (err) {
-                    res.send("Da xay ra loi khi update thong tin");
-                } else {
-                    res.send("Update thong tin thanh cong");
-                }
-            }
-        );
-    };
-    deleteWorkSpaceById = (req, res) => {
-        WorkSpaceModel.findOneAndDelete({ _id: req.query.id }, (err) => {
-            if (err) {
-                res.send("Da co loi xay ra khi delete WorkSpace");
-            } else {
-                res.send("Xoa WorkSpace thanh cong");
-            }
-        });
-    };
-  
+    workspaceModel
+      .createNew(newWorkSpace)
+      .then((data) => res.send(data))
+      .catch((err) => {
+        throw err;
+      });
+  };
 
-   
+  getAllWorkSpaces = (req, res) => {
+    workspaceModel
+      .getAll(req.query.skip, req.query.limit, req.query.orderBy)
+      .then((data) => {
+        res.json({
+          length: data.length,
+          data: data,
+        });
+      })
+      .catch((err) => {
+        throw err;
+      });
+  };
+
+  getAllKanbanBoardOfAllWorkSpaces = async (req, res) => {
+    const data = await workspaceModel.workSpaceAggregate();
+    res.json({ length: data.length, data: data });
+  };
+
+  getWorkSpaceById = (req, res) => {
+    const id = req.query.id;
+
+    workspaceModel
+      .findById(id)
+      .then((data) => res.json(data))
+      .catch((err) => {
+        throw err;
+      });
+  };
+
+  updateWorkSpaceById = async (req, res) => {
+    const { value, error } = workSpaceUpdateValidate(req.body);
+    if (error) return res.status(400).send(error.details[0].message);
+
+    const id = req.query.id;
+    const result = await workspaceModel.update(id, value);
+
+    if (result) res.send({ success: true, message: "Succesfully updated" });
+    else
+      res.send({
+        success: false,
+        message: "Sorry, something went wrong",
+      });
+  };
+
+  deleteWorkSpaceById = async (req, res) => {
+    const id = req.query.id;
+    const result = await workspaceModel.delete(id);
+
+    if (result) res.json("Succesfully delete");
+    else res.json("Sorry, Something went wrong");
+  };
 }
 module.exports = WorkSpaceController;
