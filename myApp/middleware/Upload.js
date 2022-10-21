@@ -12,4 +12,4 @@ const upload = async (base64String) => {
   return response;
 };
 
-export default upload;
+module.exports = upload;

@@ -5,12 +5,26 @@ const KanbanBoardController = require("../controller/KanbanBoardController.js");
 const kanbanBoardController = new KanbanBoardController();
 
 KanbanBoardRouter.get("/", kanbanBoardController.getAllKanbanBoards);
-KanbanBoardRouter.get("/getKanbanBoardById", kanbanBoardController.getKanbanBoardById);
-KanbanBoardRouter.post("/createKanbanBoard", kanbanBoardController.createKanbanBoard);
+KanbanBoardRouter.get(
+  "/getKanbanBoardById",
+  kanbanBoardController.getKanbanBoardById
+);
+KanbanBoardRouter.post(
+  "/createKanbanBoard",
+  kanbanBoardController.createKanbanBoard
+);
 
-KanbanBoardRouter.put("/updateKanbanBoardById", kanbanBoardController.updateKanbanBoardById);
-KanbanBoardRouter.delete("/deleteKanbanBoardById", kanbanBoardController.deleteKanbanBoardById);
-KanbanBoardRouter.delete("/getAllTicketsOfAllKanbanBoards", kanbanBoardController.getAllTicketsOfAllKanbanBoards);
-
+KanbanBoardRouter.put(
+  "/updateKanbanBoardById",
+  kanbanBoardController.updateKanbanBoardById
+);
+KanbanBoardRouter.delete(
+  "/deleteKanbanBoardById",
+  kanbanBoardController.deleteKanbanBoardById
+);
+KanbanBoardRouter.delete(
+  "/getAllTicketsOfAllKanbanBoards",
+  kanbanBoardController.getAllTicketsOfAllKanbanBoards
+);
 
 module.exports = KanbanBoardRouter;
