@@ -28,9 +28,9 @@ class UserModel extends BaseModel {
     return result;
   };
 
-  //Tìm user có email vs password
-  findByEmailAndPassword = function (e, p) {
-    const query = this.model.find({ email: e }, { password: p }).limit(1);
+  //Tìm user dựa vào email
+  findByEmail = function (e) {
+    const query = this.model.find({ email: e }).limit(1);
 
     return query.exec();
   };

@@ -3,8 +3,10 @@ const UserModel = require("../DAL/model/UserModel");
 const upload = require("../middleware/Upload");
 const fs = require("fs");
 const path = require("path");
+const bcrypt = require("bcrypt");
 
 const userModel = new UserModel();
+const saltRounds = 10;
 
 class UserController {
   createUser = async (req, res) => {
@@ -21,21 +23,21 @@ class UserController {
     //     email,
     //     password
     // }
+    const hashPassword = bcrypt.hashSync(newUser.password, saltRounds);
+    newUser.passwordHash = hashPassword;
 
     // //Check email exist in db
-    userModel
-      .findByEmailAndPassword(newUser.email, newUser.password)
-      .then((emailExists) => {
-        if (emailExists.length > 0) res.status(400).send("Email exists in db");
-        else {
-          userModel
-            .createNew(newUser)
-            .then((data) => res.send(data))
-            .catch((err) => {
-              throw err;
-            });
-        }
-      });
+    userModel.findByEmail(newUser.email).then((emailExists) => {
+      if (emailExists.length > 0) res.status(400).send("Email exists in db");
+      else {
+        userModel
+          .createNew(newUser)
+          .then((data) => res.send(data))
+          .catch((err) => {
+            throw err;
+          });
+      }
+    });
   };
 
   getAllUsers = (req, res) => {
@@ -140,6 +142,8 @@ class UserController {
     // );
 
     const id = req.query.id;
+    const hashPassword = bcrypt.hashSync(value.password, saltRounds);
+    value.passwordHash = hashPassword;
 
     //Tải avatar cho user
     if (value.avatar) {
@@ -210,13 +214,20 @@ class UserController {
     const email = req.body.email;
     const password = req.body.password;
 
-    userModel.findByEmailAndPassword(email, password).then((data) => {
+    userModel.findByEmail(email).then((data) => {
       //Kiểm tra xem có tồn tại user hay không
       if (data.length > 0) {
         //Có tồn tại
-        const token = userModel.generateAccessToken({ email: email });
+        const loginPassword = bcrypt.compareSync(
+          password,
+          data[0].passwordHash
+        );
+        if (!loginPassword) return res.status(400).send("Password Incorrect");
+        else {
+          const token = userModel.generateAccessToken({ email: email });
 
-        res.json({ existed: true, token: token, id: data[0]._id });
+          res.json({ existed: true, token: token, id: data[0]._id });
+        }
       } else {
         //Không tồn tại
         res.json({ existed: false, token: "", id: "" });
