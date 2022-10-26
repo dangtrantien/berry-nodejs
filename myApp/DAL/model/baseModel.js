@@ -24,20 +24,27 @@ class BaseModel {
     return query.exec();
   };
 
+  //Tạo mới db
   createNew = async function (data) {
     return this.model.create(data);
   };
 
+  //Tìm theo id
   findById = async function (id) {
     return this.model.find({ _id: id });
   };
 
-  update = async function (id, data) {
-    data.lastUpdatedDate = new Date().toLocaleString();
+  //Tìm theo tên
+  findByName = async function (name) {
+    return this.model.find({ name: name });
+  };
 
+  //Cập nhật theo id
+  update = async function (id, data) {
     return this.model.findOneAndUpdate({ _id: id }, data, { new: true });
   };
 
+  //Xóa theo id
   delete = async function (id) {
     return this.model.findOneAndDelete({ _id: id });
   };

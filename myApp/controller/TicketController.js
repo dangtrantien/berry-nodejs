@@ -34,7 +34,10 @@ class TicketController {
 
     ticketModel
       .findById(id)
-      .then((data) => res.json(data))
+      .then((data) => {
+        if (data.length > 0) res.json(data);
+        else res.json("Ticket dose not exist");
+      })
       .catch((err) => {
         throw err;
       });
@@ -60,7 +63,12 @@ class TicketController {
     const result = await ticketModel.delete(id);
 
     if (result) res.json("Succesfully delete");
-    else res.json("Sorry, Something went wrong");
+    else res.json("Sorry, something went wrong");
+  };
+
+  getAllCommentsOfAllTickets = async (req, res) => {
+    const data = await ticketModel.commentAggregate();
+    res.json({ length: data.length, data: data });
   };
 }
 

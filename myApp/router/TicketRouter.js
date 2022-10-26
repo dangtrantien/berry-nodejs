@@ -4,10 +4,15 @@ const TicketController = require("../controller/TicketController.js");
 
 const ticketController = new TicketController();
 
-TicketRouter.get("/", ticketController.getAllTickets);
-TicketRouter.get("/getTicketById", ticketController.getTicketById);
-TicketRouter.post("/createTicket", ticketController.createTicket);
-TicketRouter.put("/updateTicketById", ticketController.updateTicketById);
-TicketRouter.delete("/deleteTicketById", ticketController.deleteTicketById);
+TicketRouter
+  .get("/", ticketController.getAllTickets)
+  .get("/getTicketById", ticketController.getTicketById)
+  .post("/createTicket", ticketController.createTicket)
+  .put("/updateTicketById", ticketController.updateTicketById)
+  .delete("/deleteTicketById", ticketController.deleteTicketById)
+  .get(
+    "/getAllCommentsOfAllTickets",
+    ticketController.getAllCommentsOfAllTickets
+  );
 
 module.exports = TicketRouter;

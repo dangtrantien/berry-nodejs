@@ -23,10 +23,12 @@ class UserController {
     //     email,
     //     password
     // }
+
+    //Mã hóa password
     const hashPassword = bcrypt.hashSync(newUser.password, saltRounds);
     newUser.passwordHash = hashPassword;
 
-    // //Check email exist in db
+    //Kiểm tra email có tồn tại trong db
     userModel.findByEmail(newUser.email).then((emailExists) => {
       if (emailExists.length > 0) res.status(400).send("Email exists in db");
       else {
@@ -79,7 +81,10 @@ class UserController {
 
     userModel
       .findById(id)
-      .then((data) => res.json(data))
+      .then((data) => {
+        if (data.length > 0) res.json(data);
+        else res.json("User dose not exist");
+      })
       .catch((err) => {
         throw err;
       });
@@ -142,8 +147,11 @@ class UserController {
     // );
 
     const id = req.query.id;
-    const hashPassword = bcrypt.hashSync(value.password, saltRounds);
-    value.passwordHash = hashPassword;
+
+    if (value.password) {
+      const hashPassword = bcrypt.hashSync(value.password, saltRounds);
+      value.passwordHash = hashPassword;
+    }
 
     //Tải avatar cho user
     if (value.avatar) {
@@ -187,9 +195,10 @@ class UserController {
     const result = await userModel.delete(id);
 
     if (result) res.json("Succesfully delete");
-    else res.json("Sorry, Something went wrong");
+    else res.json("Sorry, something went wrong");
   };
 
+  //Đăng nhập
   login = async (req, res) => {
     // // 1. Validate user info
     // const { error } = loginValidate(req.body);
@@ -218,6 +227,7 @@ class UserController {
       //Kiểm tra xem có tồn tại user hay không
       if (data.length > 0) {
         //Có tồn tại
+        //So sánh password vs password đã đk mã hóa
         const loginPassword = bcrypt.compareSync(
           password,
           data[0].passwordHash

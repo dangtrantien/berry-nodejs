@@ -1,22 +1,31 @@
 const mongoose = require("mongoose");
+const CommentSchema = require("./CommentSchema");
 const Schema = mongoose.Schema;
 
-const TicketSchema = new Schema({
-  kanbanBoardID: {
-    type: mongoose.ObjectId,
-    ref: "KanbanBoard",
-    required: true,
+const TicketSchema = new Schema(
+  {
+    kanbanBoardID: {
+      type: mongoose.ObjectId,
+      ref: "kanbanBoard",
+      required: true,
+    },
+    // status: {},
+    userID: {
+      type: mongoose.ObjectId,
+      ref: "user",
+    },
+    discribe: {
+      type: String,
+    },
+    comments: {
+      type: Array,
+      value: CommentSchema,
+    },
   },
-  status: {
-    type: Boolean,
-  },
-  discribe: {
-    type: String,
-  },
-  lastUpdatedDate: {
-    type: String,
-  },
-});
+  {
+    timestamps: true,
+  }
+);
 
 TicketSchema.path("_id").ref("ticket");
 

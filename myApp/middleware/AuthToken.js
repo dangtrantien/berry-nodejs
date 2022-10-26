@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 
+//Tạo token cho user
 function authenticateToken(req, res, next) {
   const authorization = req.headers["authorization"];
   const token = authorization && authorization.split("")[1];
@@ -9,7 +10,7 @@ function authenticateToken(req, res, next) {
   jwt.verify(token, process.env.TOKEN_SECRET, (err, user) => {
     if (err) return res.sendStatus(403);
 
-    // check token correct
+    //Kiểm tra đúng user
     req.user = user;
 
     next();
