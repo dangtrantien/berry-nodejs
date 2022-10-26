@@ -34,7 +34,10 @@ class KanbanBoardController {
 
     kanbanBoardModel
       .findById(id)
-      .then((data) => res.json(data))
+      .then((data) => {
+        if (data.length > 0) res.json(data);
+        else res.json("Kanbanboard dose not exist");
+      })
       .catch((err) => {
         throw err;
       });
@@ -60,7 +63,7 @@ class KanbanBoardController {
     const result = await kanbanBoardModel.delete(id);
 
     if (result) res.json("Succesfully delete");
-    else res.json("Sorry, Something went wrong");
+    else res.json("Sorry, something went wrong");
   };
 
   getAllTicketsOfAllKanbanBoards = async (req, res) => {

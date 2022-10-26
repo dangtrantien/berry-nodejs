@@ -4,21 +4,16 @@ const WorkSpaceController = require("../controller/WorkSpaceController.js");
 
 const workSpaceController = new WorkSpaceController();
 
-WorkSpaceRouter.get("/", workSpaceController.getAllWorkSpaces);
-WorkSpaceRouter.get("/getWorkSpaceById", workSpaceController.getWorkSpaceById);
-
-WorkSpaceRouter.get(
-  "/getAllKanbanBoardOfAllWorkSpaces",
-  workSpaceController.getAllKanbanBoardOfAllWorkSpaces
-);
-WorkSpaceRouter.post("/createWorkSpace", workSpaceController.createWorkSpace);
-WorkSpaceRouter.put(
-  "/updateWorkSpaceById",
-  workSpaceController.updateWorkSpaceById
-);
-WorkSpaceRouter.delete(
-  "/deleteWorkSpaceById",
-  workSpaceController.deleteWorkSpaceById
-);
+WorkSpaceRouter
+  .get("/", workSpaceController.getAllWorkSpaces)
+  .get("/getWorkSpaceById", workSpaceController.getWorkSpaceById)
+  .get("/getWorkSpaceByName", workSpaceController.getWorkSpaceByName)
+  .post("/createWorkSpace", workSpaceController.createWorkSpace)
+  .put("/updateWorkSpaceById", workSpaceController.updateWorkSpaceById)
+  .delete("/deleteWorkSpaceById", workSpaceController.deleteWorkSpaceById)
+  .get(
+    "/getAllKanbanBoardOfAllWorkSpaces",
+    workSpaceController.getAllKanbanBoardOfAllWorkSpaces
+  );
 
 module.exports = WorkSpaceRouter;

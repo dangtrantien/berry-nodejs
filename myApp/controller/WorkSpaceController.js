@@ -40,7 +40,24 @@ class WorkSpaceController {
 
     workspaceModel
       .findById(id)
-      .then((data) => res.json(data))
+      .then((data) => {
+        if (data.length > 0) res.json(data);
+        else res.json("Workspace dose not exist");
+      })
+      .catch((err) => {
+        throw err;
+      });
+  };
+
+  getWorkSpaceByName = (req, res) => {
+    const name = req.body.name;
+
+    workspaceModel
+      .findByName(name)
+      .then((data) => {
+        if (data.length > 0) res.json(data);
+        else res.json("Workspace dose not exist");
+      })
       .catch((err) => {
         throw err;
       });
@@ -66,7 +83,7 @@ class WorkSpaceController {
     const result = await workspaceModel.delete(id);
 
     if (result) res.json("Succesfully delete");
-    else res.json("Sorry, Something went wrong");
+    else res.json("Sorry, something went wrong");
   };
 }
 module.exports = WorkSpaceController;
