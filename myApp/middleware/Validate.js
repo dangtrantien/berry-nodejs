@@ -22,22 +22,12 @@ const workSpaceUpdateValidate = (data) => {
   return schema.validate(data);
 };
 
-const kanbanBoardUpdateValidate = (data) => {
-  const schema = Joi.object({
-    name: Joi.string().min(3),
-    userID: Joi.string().min(3),
-    workSpaceID: Joi.string().min(3),
-  });
-
-  return schema.validate(data);
-};
-
 const ticketUpdateValidate = (data) => {
   const schema = Joi.object({
-    status: Joi.string().min(3),
-    member: Joi.string().min(3),
+    workSpaceID: Joi.string().min(3),
+    userID: Joi.string().min(3),
     discribe: Joi.string().min(3),
-    kanbanBoardID: Joi.string().min(3),
+    status: Joi.string().min(3),
   });
 
   return schema.validate(data);
@@ -46,6 +36,5 @@ const ticketUpdateValidate = (data) => {
 module.exports = {
   userUpdateValidate,
   workSpaceUpdateValidate,
-  kanbanBoardUpdateValidate,
   ticketUpdateValidate,
 };

@@ -30,8 +30,8 @@ class WorkSpaceController {
       });
   };
 
-  getAllKanbanBoardOfAllWorkSpaces = async (req, res) => {
-    const data = await workspaceModel.kanbanBoardAggregate();
+  getAllTicketOfAllWorkSpaces = async (req, res) => {
+    const data = await workspaceModel.ticketAggregate();
     res.json({ length: data.length, data: data });
   };
 
@@ -86,4 +86,5 @@ class WorkSpaceController {
     else res.json("Sorry, something went wrong");
   };
 }
+
 module.exports = WorkSpaceController;

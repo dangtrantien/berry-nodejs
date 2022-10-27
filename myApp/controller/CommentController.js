@@ -18,7 +18,7 @@ class CommentController {
         message,
         senderID
       );
-
+      console.log("post", post);
       global.io.sockets.in(ticketID).emit("new message", { message: post });
 
       return res.status(200).json({ success: true, post });

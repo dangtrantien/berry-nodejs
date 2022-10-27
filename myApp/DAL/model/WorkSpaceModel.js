@@ -6,15 +6,15 @@ class WorkSpaceModel extends BaseModel {
     super("workspace", WorkSpaceSchema);
   }
 
-  //Liên kết workspace vs kanban board
-  kanbanBoardAggregate = async function () {
+  //Liên kết workspace vs ticket
+  ticketAggregate = async function () {
     const agg = [
       {
         $lookup: {
-          from: "kanbanboards",
+          from: "tickets",
           localField: "_id",
           foreignField: "workSpaceID",
-          as: "kanbanBoards",
+          as: "tickets",
         },
       },
     ];
