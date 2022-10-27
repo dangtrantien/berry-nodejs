@@ -14,7 +14,7 @@ class CommentModel extends BaseModel {
         senderID,
         readByRecipients: { readByUserID: senderID },
       });
-      console.log("[post]", post);
+
       const aggregate = await this.model.aggregate([
         // get post where _id = post._id
         { $match: { _id: post._id } },
@@ -40,19 +40,8 @@ class CommentModel extends BaseModel {
           },
         },
         { $unwind: "$ticketID" },
-        // group data
-        {
-          $group: {
-            _id: { $last: "$_id" },
-            ticketID: { $last: "$ticketID" },
-            senderID: { $last: "$senderID" },
-            readByRecipients: { $last: "$readByRecipients" },
-            createdAt: { $last: "$createdAt" },
-            updatedAt: { $last: "$updatedAt" },
-          },
-        },
       ]);
-      console.log("aggregate", aggregate);
+
       return aggregate;
     } catch (error) {
       throw error;

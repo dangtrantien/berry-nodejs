@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const WorkSpaceSchema = require("./WorkSpaceSchema");
 
 const UserSchema = new Schema(
   {
@@ -25,18 +24,12 @@ const UserSchema = new Schema(
     avatar: {
       type: String, //base64
     },
-    workSpaces: [WorkSpaceSchema],
-    //or
-    // workSpaces:Array.of(WorkSpaceSchema)
-    //or
-    // workSpaces: {
-    //   type: Array,
-    //   value: WorkSpaceSchema,
-    // },
   },
   {
     timestamps: true,
   }
 );
+
+UserSchema.path("_id").ref("user");
 
 module.exports = UserSchema;
