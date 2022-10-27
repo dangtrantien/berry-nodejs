@@ -5,12 +5,12 @@ const CommentController = require("../controller/CommentController");
 const commentController = new CommentController();
 
 CommentRouter
-  .get("/:ticketID", commentController.getConversationByTicketID)
-  .post("/:ticketID/addComment", commentController.addComment)
+  .get("/:taskID", commentController.getConversationByTaskID)
+  .post("/:taskID/addComment", commentController.addComment)
   .delete("/deleteCommentById", commentController.deleteCommentById)
   .put(
-    "/:ticketID/markConversationReadByTicketID",
-    commentController.markConversationReadByTicketID
+    "/:taskID/markConversationReadByTaskID",
+    commentController.markConversationReadByTaskID
   );
 
 module.exports = CommentRouter;

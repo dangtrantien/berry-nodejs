@@ -9,10 +9,6 @@ TicketRouter
   .get("/getTicketById", ticketController.getTicketById)
   .post("/createTicket", ticketController.createTicket)
   .put("/updateTicketById", ticketController.updateTicketById)
-  .delete("/deleteTicketById", ticketController.deleteTicketById)
-  .get(
-    "/getAllCommentsOfAllTickets",
-    ticketController.getAllCommentsOfAllTickets
-  );
+  .delete("/deleteTicketById", ticketController.deleteTicketById);
 
 module.exports = TicketRouter;

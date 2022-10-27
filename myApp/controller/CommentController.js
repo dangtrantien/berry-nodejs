@@ -1,25 +1,25 @@
 const UserModel = require("../DAL/model/UserModel");
-const TicketModel = require("../DAL/model/TicketModel");
+const TaskModel = require("../DAL/model/TaskModel");
 const CommentModel = require("../DAL/model/CommentModel");
 
 const userModel = new UserModel();
-const ticketModel = new TicketModel();
+const taskModel = new TaskModel();
 const commentModel = new CommentModel();
 
 class CommentController {
   addComment = async (req, res) => {
     try {
-      const { ticketID } = req.params;
+      const { taskID } = req.params;
       const message = req.body.message;
       const senderID = req.senderID;
 
-      const post = await commentModel.addCommentInTicket(
-        ticketID,
+      const post = await commentModel.addCommentInTask(
+        taskID,
         message,
         senderID
       );
 
-      global.io.sockets.in(ticketID).emit("new message", { message: post });
+      global.io.sockets.in(taskID).emit("new message", { message: post });
 
       return res.status(200).json({ success: true, post });
     } catch (error) {
@@ -27,25 +27,25 @@ class CommentController {
     }
   };
 
-  getConversationByTicketID = async (req, res) => {
+  getConversationByTaskID = async (req, res) => {
     try {
-      const { ticketID } = req.params;
-      const ticket = await ticketModel.findById(ticketID);
-      if (!ticket) {
+      const { taskID } = req.params;
+      const task = await taskModel.findById(taskID);
+      if (!task) {
         return res.status(400).json({
           success: false,
-          message: "No ticket exists for this id",
+          message: "No task exists for this id",
         });
       }
 
-      const users = await userModel.findById(ticket[0].userID);
+      const users = await userModel.findById(task[0].userID);
       const options = {
         page: parseInt(req.query.page) || 0,
         limit: parseInt(req.query.limit) || 10,
       };
 
-      const conversation = await commentModel.getConversationByTicketId(
-        ticketID,
+      const conversation = await commentModel.getConversationByTaskId(
+        taskID,
         options
       );
 
@@ -59,20 +59,20 @@ class CommentController {
     }
   };
 
-  markConversationReadByTicketID = async (req, res) => {
+  markConversationReadByTaskID = async (req, res) => {
     try {
-      const { ticketID } = req.params;
-      const ticket = await ticketModel.findById(ticketID);
-      if (!ticket) {
+      const { taskID } = req.params;
+      const task = await taskModel.findById(taskID);
+      if (!task) {
         return res.status(400).json({
           success: false,
-          message: "No ticket exists for this id",
+          message: "No task exists for this id",
         });
       }
 
       const currentLoggedUser = req.userId;
       const result = await commentModel.markMessageRead(
-        ticketID,
+        taskID,
         currentLoggedUser
       );
 

@@ -6,10 +6,10 @@ class CommentModel extends BaseModel {
     super("comment", CommentSchema);
   }
 
-  addCommentInTicket = async function (ticketID, message, senderID) {
+  addCommentInTask = async function (taskID, message, senderID) {
     try {
       const post = await this.model.create({
-        ticketID,
+        taskID,
         message,
         senderID,
         readByRecipients: { readByUserID: senderID },
@@ -29,17 +29,17 @@ class CommentModel extends BaseModel {
           },
         },
         { $unwind: "$senderID" },
-        // do a join on another table called tickets, and
-        // get me a ticket whose _id = ticketID
+        // do a join on another table called tasks, and
+        // get me a task whose _id = taskID
         {
           $lookup: {
-            from: "tickets",
-            localField: "ticketID",
+            from: "tasks",
+            localField: "taskID",
             foreignField: "_id",
-            as: "ticketID",
+            as: "taskID",
           },
         },
-        { $unwind: "$ticketID" },
+        { $unwind: "$taskID" },
       ]);
 
       return aggregate;
@@ -48,10 +48,10 @@ class CommentModel extends BaseModel {
     }
   };
 
-  getConversationByTicketId = async function (ticketID, options = {}) {
+  getConversationByTaskId = async function (taskID, options = {}) {
     try {
       return this.model.aggregate([
-        { $match: { ticketID } },
+        { $match: { taskID } },
         { $sort: { createdAt: -1 } },
         // do a join on another table called users, and
         // get me a user whose _id = senderID
@@ -74,11 +74,11 @@ class CommentModel extends BaseModel {
     }
   };
 
-  markMessageRead = async function (ticketID, currentUserOnlineId) {
+  markMessageRead = async function (taskID, currentUserOnlineId) {
     try {
       return this.model.updateMany(
         {
-          ticketID,
+          taskID,
           "readByRecipients.readByUserID": { $ne: currentUserOnlineId },
         },
         {
