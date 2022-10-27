@@ -4,7 +4,7 @@ const UserSchema = require("./UserSchema");
 
 const TaskSchema = new Schema(
   {
-    discribe: {
+    describe: {
       type: String,
       required: true,
     },
