@@ -3,7 +3,7 @@ const UserModel = require("../DAL/model/UserModel");
 const upload = require("../middleware/Upload");
 const fs = require("fs");
 const path = require("path");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 
 const userModel = new UserModel();
 const saltRounds = 10;
