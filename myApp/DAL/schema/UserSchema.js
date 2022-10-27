@@ -25,14 +25,14 @@ const UserSchema = new Schema(
     avatar: {
       type: String, //base64
     },
-    // workSpaces:[WorkSpaceSchema]
-
+    workSpaces: [WorkSpaceSchema],
+    //or
     // workSpaces:Array.of(WorkSpaceSchema)
     //or
-    workSpaces: {
-      type: Array,
-      value: WorkSpaceSchema,
-    },
+    // workSpaces: {
+    //   type: Array,
+    //   value: WorkSpaceSchema,
+    // },
   },
   {
     timestamps: true,

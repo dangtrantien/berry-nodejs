@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const KanbanBoardSchema = require("./KanbanBoardSchema");
+const TicketSchema = require("./TicketSchema");
 
 const WorkSpaceSchema = new Schema(
   {
@@ -14,10 +14,7 @@ const WorkSpaceSchema = new Schema(
       ref: "user",
       required: true,
     },
-    kanbanBoards: {
-      type: Array,
-      value: KanbanBoardSchema,
-    },
+    tickets: [TicketSchema],
   },
   {
     timestamps: true,

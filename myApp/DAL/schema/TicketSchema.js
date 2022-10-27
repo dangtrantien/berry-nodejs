@@ -1,15 +1,14 @@
 const mongoose = require("mongoose");
-const CommentSchema = require("./CommentSchema");
 const Schema = mongoose.Schema;
+const CommentSchema = require("./CommentSchema");
 
 const TicketSchema = new Schema(
   {
-    kanbanBoardID: {
+    workSpaceID: {
       type: mongoose.ObjectId,
-      ref: "kanbanBoard",
+      ref: "workspace",
       required: true,
     },
-    // status: {},
     userID: {
       type: mongoose.ObjectId,
       ref: "user",
@@ -17,10 +16,8 @@ const TicketSchema = new Schema(
     discribe: {
       type: String,
     },
-    comments: {
-      type: Array,
-      value: CommentSchema,
-    },
+    comments: [CommentSchema],
+    // status: {},
   },
   {
     timestamps: true,

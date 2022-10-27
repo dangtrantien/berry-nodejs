@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
-const UserSchema = require("./UserSchema");
 const Schema = mongoose.Schema;
+const UserSchema = require("./UserSchema");
 
 //Trạng thái đã xem comment
 const ReadByRecipientSchema = new mongoose.Schema(
@@ -37,10 +37,7 @@ const CommentSchema = Schema(
       require: true,
     },
     readByRecipients: [ReadByRecipientSchema],
-    user: {
-      type: Array,
-      value: UserSchema,
-    },
+    user: [UserSchema],
   },
   {
     timestamps: true,

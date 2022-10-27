@@ -12,8 +12,8 @@ WorkSpaceRouter
   .put("/updateWorkSpaceById", workSpaceController.updateWorkSpaceById)
   .delete("/deleteWorkSpaceById", workSpaceController.deleteWorkSpaceById)
   .get(
-    "/getAllKanbanBoardOfAllWorkSpaces",
-    workSpaceController.getAllKanbanBoardOfAllWorkSpaces
+    "/getAllTicketOfAllWorkSpaces",
+    workSpaceController.getAllTicketOfAllWorkSpaces
   );
 
 module.exports = WorkSpaceRouter;
