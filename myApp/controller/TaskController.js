@@ -1,22 +1,22 @@
-const { ticketUpdateValidate } = require("../middleware/Validate.js");
-const TicketModel = require("../DAL/model/TicketModel");
+const { taskUpdateValidate } = require("../middleware/Validate.js");
+const TaskModel = require("../DAL/model/TaskModel");
 
-const ticketModel = new TicketModel();
+const taskModel = new TaskModel();
 
-class TicketController {
-  createTicket = async (req, res) => {
-    const newTicket = req.body.newTicket;
+class TaskController {
+  createTask = async (req, res) => {
+    const newTask = req.body.newTask;
 
-    ticketModel
-      .createNew(newTicket)
+    taskModel
+      .createNew(newTask)
       .then((data) => res.send(data))
       .catch((err) => {
         throw err;
       });
   };
 
-  getAllTickets = (req, res) => {
-    ticketModel
+  getAllTasks = (req, res) => {
+    taskModel
       .getAll(req.query.skip, req.query.limit, req.query.orderBy)
       .then((data) => {
         res.json({
@@ -29,10 +29,10 @@ class TicketController {
       });
   };
 
-  getTicketById = (req, res) => {
+  getTaskById = (req, res) => {
     const id = req.query.id;
 
-    ticketModel
+    taskModel
       .findById(id)
       .then((data) => {
         if (data.length > 0) res.json(data);
@@ -43,12 +43,12 @@ class TicketController {
       });
   };
 
-  updateTicketById = async (req, res) => {
-    const { value, error } = ticketUpdateValidate(req.body);
+  updateTaskById = async (req, res) => {
+    const { value, error } = taskUpdateValidate(req.body);
     if (error) return res.status(400).send(error.details[0].message);
 
     const id = req.query.id;
-    const result = await ticketModel.update(id, value);
+    const result = await taskModel.update(id, value);
 
     if (result) res.send({ success: true, message: "Succesfully updated" });
     else
@@ -58,13 +58,18 @@ class TicketController {
       });
   };
 
-  deleteTicketById = async (req, res) => {
+  deleteTaskById = async (req, res) => {
     const id = req.query.id;
-    const result = await ticketModel.delete(id);
+    const result = await taskModel.delete(id);
 
     if (result) res.json("Succesfully delete");
     else res.json("Sorry, something went wrong");
   };
+
+  getAllCommentsOfAllTasks = async (req, res) => {
+    const data = await taskModel.commentAggregate();
+    res.json({ length: data.length, data: data });
+  };
 }
 
-module.exports = TicketController;
+module.exports = TaskController;

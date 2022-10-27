@@ -23,17 +23,17 @@ const CommentSchema = Schema(
   {
     message: {
       type: String,
-      require: true,
+      required: true,
     },
     senderID: {
       type: mongoose.ObjectId,
       ref: "user",
-      require: true,
+      required: true,
     },
-    ticketID: {
+    taskID: {
       type: mongoose.ObjectId,
-      ref: "ticket",
-      require: true,
+      ref: "task",
+      required: true,
     },
     readByRecipients: [ReadByRecipientSchema],
   },

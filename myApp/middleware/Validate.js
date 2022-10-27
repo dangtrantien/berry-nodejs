@@ -25,9 +25,26 @@ const workSpaceUpdateValidate = (data) => {
 const ticketUpdateValidate = (data) => {
   const schema = Joi.object({
     workSpaceID: Joi.string().min(3),
-    userID: Joi.string().min(3),
+    name: Joi.string().min(3),
+  });
+
+  return schema.validate(data);
+};
+
+const taskUpdateValidate = (data) => {
+  const schema = Joi.object({
     discribe: Joi.string().min(3),
     status: Joi.string().min(3),
+  });
+
+  return schema.validate(data);
+};
+
+const commentUpdateValidate = (data) => {
+  const schema = Joi.object({
+    message: Joi.string().min(3),
+    senderID: Joi.string().min(3),
+    taskID: Joi.string().min(3),
   });
 
   return schema.validate(data);
@@ -37,4 +54,6 @@ module.exports = {
   userUpdateValidate,
   workSpaceUpdateValidate,
   ticketUpdateValidate,
+  taskUpdateValidate,
+  commentUpdateValidate,
 };
