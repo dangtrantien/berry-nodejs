@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const CommentSchema = require("./CommentSchema");
+const UserSchema = require("./UserSchema");
 
 const TicketSchema = new Schema(
   {
@@ -9,14 +9,10 @@ const TicketSchema = new Schema(
       ref: "workspace",
       required: true,
     },
-    userID: {
-      type: mongoose.ObjectId,
-      ref: "user",
-    },
     discribe: {
       type: String,
     },
-    comments: [CommentSchema],
+    users: [UserSchema],
     // status: {},
   },
   {

@@ -11,14 +11,14 @@ class CommentController {
     try {
       const { ticketID } = req.params;
       const message = req.body.message;
-      const senderID = req.body.senderID;
+      const senderID = req.senderID;
 
       const post = await commentModel.addCommentInTicket(
         ticketID,
         message,
         senderID
       );
-      console.log("post", post);
+
       global.io.sockets.in(ticketID).emit("new message", { message: post });
 
       return res.status(200).json({ success: true, post });

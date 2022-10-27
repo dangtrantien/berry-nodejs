@@ -1,10 +1,9 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const TicketSchema = require("./TicketSchema");
+const UserSchema = require("./UserSchema");
 
 const WorkSpaceSchema = new Schema(
   {
-    // _id: mongoose.ObjectId,
     name: {
       type: String,
       required: true,
@@ -14,7 +13,7 @@ const WorkSpaceSchema = new Schema(
       ref: "user",
       required: true,
     },
-    tickets: [TicketSchema],
+    users: [UserSchema],
   },
   {
     timestamps: true,
