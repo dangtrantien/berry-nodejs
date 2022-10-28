@@ -25,21 +25,8 @@ class WorkSpaceController {
     const id = req.query.id;
 
     const data = await workspaceModel.ticketAggregate(id);
-    res.json(data);
-  };
-
-  getWorkSpaceById = (req, res) => {
-    const id = req.query.id;
-
-    workspaceModel
-      .findById(id)
-      .then((data) => {
-        if (data.length > 0) res.json(data);
-        else res.json("Workspace dose not exist");
-      })
-      .catch((err) => {
-        throw err;
-      });
+    if (data.length > 0) res.json(data);
+    else res.json("Workspace dose not exist");
   };
 
   getWorkSpaceByName = (req, res) => {
