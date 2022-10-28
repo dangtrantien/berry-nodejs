@@ -21,6 +21,13 @@ class WorkSpaceController {
     res.json({ length: data.length, data: data });
   };
 
+  getAllTicketsOfOneWorkSpace = async (req, res) => {
+    const id = req.query.id;
+
+    const data = await workspaceModel.ticketAggregate(id);
+    res.json(data);
+  };
+
   getWorkSpaceById = (req, res) => {
     const id = req.query.id;
 

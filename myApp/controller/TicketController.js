@@ -34,6 +34,13 @@ class TicketController {
     res.json({ length: data.length, data: data });
   };
 
+  getAllTasksOfOneTicket = async (req, res) => {
+    const id = req.query.id;
+
+    const data = await ticketModel.taskAggregate(id);
+    res.json(data);
+  };
+
   updateTicketById = async (req, res) => {
     const { value, error } = ticketUpdateValidate(req.body);
     if (error) return res.status(400).send(error.details[0].message);
