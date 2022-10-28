@@ -4,6 +4,11 @@ const UserSchema = require("./UserSchema");
 
 const TaskSchema = new Schema(
   {
+    ticketID: {
+      type: mongoose.ObjectId,
+      ref: "ticket",
+      required: true,
+    },
     describe: {
       type: String,
       required: true,

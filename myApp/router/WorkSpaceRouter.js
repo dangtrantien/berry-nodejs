@@ -5,15 +5,14 @@ const WorkSpaceController = require("../controller/WorkSpaceController.js");
 const workSpaceController = new WorkSpaceController();
 
 WorkSpaceRouter
-  .get("/", workSpaceController.getAllWorkSpaces)
   .get("/getWorkSpaceById", workSpaceController.getWorkSpaceById)
   .get("/getWorkSpaceByName", workSpaceController.getWorkSpaceByName)
   .post("/createWorkSpace", workSpaceController.createWorkSpace)
   .put("/updateWorkSpaceById", workSpaceController.updateWorkSpaceById)
   .delete("/deleteWorkSpaceById", workSpaceController.deleteWorkSpaceById)
   .get(
-    "/getAllTicketOfAllWorkSpaces",
-    workSpaceController.getAllTicketOfAllWorkSpaces
+    "/getAllWorkSpacesOfAllUsers",
+    workSpaceController.getAllWorkSpacesOfAllUsers
   );
 
 module.exports = WorkSpaceRouter;

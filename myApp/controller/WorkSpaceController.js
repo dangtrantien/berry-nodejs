@@ -16,22 +16,8 @@ class WorkSpaceController {
       });
   };
 
-  getAllWorkSpaces = (req, res) => {
-    workspaceModel
-      .getAll(req.query.skip, req.query.limit, req.query.orderBy)
-      .then((data) => {
-        res.json({
-          length: data.length,
-          data: data,
-        });
-      })
-      .catch((err) => {
-        throw err;
-      });
-  };
-
-  getAllTicketOfAllWorkSpaces = async (req, res) => {
-    const data = await workspaceModel.ticketAggregate();
+  getAllWorkSpacesOfAllUsers = async (req, res) => {
+    const data = await workspaceModel.userAggregate();
     res.json({ length: data.length, data: data });
   };
 

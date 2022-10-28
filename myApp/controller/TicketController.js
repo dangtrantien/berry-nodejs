@@ -15,20 +15,6 @@ class TicketController {
       });
   };
 
-  getAllTickets = (req, res) => {
-    ticketModel
-      .getAll(req.query.skip, req.query.limit, req.query.orderBy)
-      .then((data) => {
-        res.json({
-          length: data.length,
-          data: data,
-        });
-      })
-      .catch((err) => {
-        throw err;
-      });
-  };
-
   getTicketById = (req, res) => {
     const id = req.query.id;
 
@@ -41,6 +27,11 @@ class TicketController {
       .catch((err) => {
         throw err;
       });
+  };
+
+  getAllTicketsOfAllWorkSpaces = async (req, res) => {
+    const data = await ticketModel.workspaceAggregate();
+    res.json({ length: data.length, data: data });
   };
 
   updateTicketById = async (req, res) => {

@@ -90,45 +90,6 @@ class UserController {
       });
   };
 
-  getAllWorkSpacesOfAllUsers = async (req, res) => {
-    // const agg = [
-    //   {
-    //     $lookup: {
-    //       from: "workspaces",
-    //       localField: "_id",
-    //       foreignField: "userID",
-    //       as: "workSpaces",
-    //     },
-    //   },
-    // ];
-    // var result = await UserModel.aggregate(agg);
-    // res.send(result);
-    // res.send(result.length);
-
-    const data = await userModel.workSpaceAggregate();
-    res.json({ length: data.length, data: data });
-  };
-
-  // getAllWorkSpaceOfUser = async (req, res) => {
-  //     var userid= new obj(req.query.id)
-  //     const agg = [
-  //         {
-  //             $lookup: {
-  //                 from: "workspaces",
-  //                 localField: "_id",
-  //                 foreignField: "userID",
-  //                 as: "workSpaces"
-  //             }
-  //         }  ,
-  //         {
-  //             $match: { _id: userid},
-  //         }
-
-  //     ]
-  //     var result = await UserModel.aggregate(agg)
-  //     res.send(result)
-  // };
-
   updateUserById = async (req, res) => {
     const { value, error } = userUpdateValidate(req.body);
     if (error) return res.status(400).send(error.details[0].message);

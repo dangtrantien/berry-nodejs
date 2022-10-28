@@ -10,24 +10,6 @@ class UserModel extends BaseModel {
     super("user", UserSchema);
   }
 
-  //Liên kết user vs workspace
-  workSpaceAggregate = async function () {
-    const agg = [
-      {
-        $lookup: {
-          from: "workspaces",
-          localField: "_id",
-          foreignField: "userID",
-          as: "workSpaces",
-        },
-      },
-    ];
-
-    const result = await this.model.aggregate(agg);
-
-    return result;
-  };
-
   //Tìm user dựa vào email
   findByEmail = function (e) {
     const query = this.model.find({ email: e }).limit(1);
