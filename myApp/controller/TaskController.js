@@ -15,20 +15,6 @@ class TaskController {
       });
   };
 
-  getAllTasks = (req, res) => {
-    taskModel
-      .getAll(req.query.skip, req.query.limit, req.query.orderBy)
-      .then((data) => {
-        res.json({
-          length: data.length,
-          data: data,
-        });
-      })
-      .catch((err) => {
-        throw err;
-      });
-  };
-
   getTaskById = (req, res) => {
     const id = req.query.id;
 
@@ -66,8 +52,8 @@ class TaskController {
     else res.json("Sorry, something went wrong");
   };
 
-  getAllCommentsOfAllTasks = async (req, res) => {
-    const data = await taskModel.commentAggregate();
+  getAllTasksOfAllTickets = async (req, res) => {
+    const data = await taskModel.ticketAggregate();
     res.json({ length: data.length, data: data });
   };
 }

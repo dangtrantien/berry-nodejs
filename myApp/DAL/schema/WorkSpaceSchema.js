@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const UserSchema = require("./UserSchema");
 
 const WorkSpaceSchema = new Schema(
   {
@@ -13,7 +12,6 @@ const WorkSpaceSchema = new Schema(
       ref: "user",
       required: true,
     },
-    users: [UserSchema],
   },
   {
     timestamps: true,

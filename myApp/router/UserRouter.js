@@ -8,8 +8,6 @@ UserRouter
   .get("/", userController.getAllUsers)
   .get("/getUserById", userController.getUserById)
   .post("/createUser", userController.createUser)
-  .get("/getAllWorkSpacesOfAllUsers", userController.getAllWorkSpacesOfAllUsers)
-  // UserRouter.get("/getAllWorkSpaceOfUser", userController.getAllWorkSpaceOfUser);
   .put("/updateUserById", userController.updateUserById)
   .delete("/deleteUserById", userController.deleteUserById)
   .post("/login", userController.login);

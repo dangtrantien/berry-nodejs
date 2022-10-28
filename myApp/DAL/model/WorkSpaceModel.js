@@ -6,17 +6,18 @@ class WorkSpaceModel extends BaseModel {
     super("workspace", WorkSpaceSchema);
   }
 
-  //Liên kết workspace vs ticket
-  ticketAggregate = async function () {
+  //Liên kết workspace vs user
+  userAggregate = async function () {
     const agg = [
       {
         $lookup: {
-          from: "tickets",
-          localField: "_id",
-          foreignField: "workSpaceID",
-          as: "tickets",
+          from: "users",
+          localField: "userID",
+          foreignField: "_id",
+          as: "userID",
         },
       },
+      { $unwind: "$userID" },
     ];
 
     const result = await this.model.aggregate(agg);

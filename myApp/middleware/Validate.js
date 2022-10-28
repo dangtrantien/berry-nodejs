@@ -33,6 +33,7 @@ const ticketUpdateValidate = (data) => {
 
 const taskUpdateValidate = (data) => {
   const schema = Joi.object({
+    ticketID: Joi.string().min(3),
     describe: Joi.string().min(3),
     status: Joi.string().min(3),
   });
