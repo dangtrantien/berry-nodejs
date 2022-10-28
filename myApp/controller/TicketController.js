@@ -15,20 +15,6 @@ class TicketController {
       });
   };
 
-  getTicketById = (req, res) => {
-    const id = req.query.id;
-
-    ticketModel
-      .findById(id)
-      .then((data) => {
-        if (data.length > 0) res.json(data);
-        else res.json("Ticket dose not exist");
-      })
-      .catch((err) => {
-        throw err;
-      });
-  };
-
   getAllTicketsOfAllWorkSpaces = async (req, res) => {
     const data = await ticketModel.workspaceAggregate();
     res.json({ length: data.length, data: data });
@@ -38,7 +24,8 @@ class TicketController {
     const id = req.query.id;
 
     const data = await ticketModel.taskAggregate(id);
-    res.json(data);
+    if (data.length > 0) res.json(data);
+    else res.json("Ticket dose not exist");
   };
 
   updateTicketById = async (req, res) => {
