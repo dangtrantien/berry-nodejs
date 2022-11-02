@@ -9,6 +9,6 @@ TaskRouter
   .post("/createTask", taskController.createTask)
   .put("/updateTaskById", taskController.updateTaskById)
   .delete("/deleteTaskById", taskController.deleteTaskById)
-  .get("/getAllTasksOfAllTickets", taskController.getAllTasksOfAllTickets);
+  .get("/getAllTasksOfAllBoards", taskController.getAllTasksOfAllBoards);
 
 module.exports = TaskRouter;

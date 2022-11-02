@@ -26,8 +26,8 @@ class WorkSpaceModel extends BaseModel {
     return result;
   };
 
-  //Liên kết 1 workspace vs ticket
-  ticketAggregate = async function (id) {
+  //Liên kết 1 workspace vs board
+  boardAggregate = async function (id) {
     const agg = [
       {
         $match: {
@@ -36,16 +36,16 @@ class WorkSpaceModel extends BaseModel {
       },
       {
         $lookup: {
-          from: "tickets",
+          from: "boards",
           localField: "_id",
           foreignField: "workSpaceID",
-          as: "tickets",
+          as: "boards",
         },
       },
       {
         $addFields: {
-          ticket_count: {
-            $size: "$tickets",
+          board_count: {
+            $size: "$boards",
           },
         },
       },

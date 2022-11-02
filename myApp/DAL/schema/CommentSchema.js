@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+const MESSAGE_TYPES = {
+  TYPE_TEXT: "text",
+};
+
 //Trạng thái đã xem comment
 const ReadByRecipientSchema = new mongoose.Schema(
   {
@@ -21,9 +25,10 @@ const ReadByRecipientSchema = new mongoose.Schema(
 
 const CommentSchema = Schema(
   {
-    message: {
+    message: mongoose.Schema.Types.Mixed,
+    type: {
       type: String,
-      required: true,
+      default: () => MESSAGE_TYPES.TYPE_TEXT,
     },
     senderID: {
       type: mongoose.ObjectId,
