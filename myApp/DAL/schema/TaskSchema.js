@@ -1,3 +1,4 @@
+const { Int32 } = require("mongodb");
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const UserSchema = require("./UserSchema");
@@ -14,7 +15,7 @@ const TaskSchema = new Schema(
       required: true,
     },
     status: {
-      type: Array,
+      type: Number,
     },
     users: [UserSchema],
   },
