@@ -1,13 +1,13 @@
 const mongoose = require("mongoose");
-const TicketSchema = require("../schema/TicketSchema");
+const BoardSchema = require("../schema/BoardSchema");
 const BaseModel = require("./baseModel");
 
-class TicketModel extends BaseModel {
+class BoardModel extends BaseModel {
   constructor() {
-    super("ticket", TicketSchema);
+    super("board", BoardSchema);
   }
 
-  //Liên kết ticket vs workspace
+  //Liên kết board vs workspace
   workspaceAggregate = async function () {
     const agg = [
       {
@@ -26,7 +26,7 @@ class TicketModel extends BaseModel {
     return result;
   };
   
-  //Liên kết 1 ticket vs task
+  //Liên kết 1 board vs task
   taskAggregate = async function (id) {
     const agg = [
       {
@@ -38,7 +38,7 @@ class TicketModel extends BaseModel {
         $lookup: {
           from: "tasks",
           localField: "_id",
-          foreignField: "ticketID",
+          foreignField: "boardID",
           as: "tasks",
         },
       },
@@ -57,4 +57,4 @@ class TicketModel extends BaseModel {
   };
 }
 
-module.exports = TicketModel;
+module.exports = BoardModel;

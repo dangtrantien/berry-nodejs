@@ -14,8 +14,8 @@ WorkSpaceRouter
     workSpaceController.getAllWorkSpacesOfAllUsers
   )
   .get(
-    "/getAllTicketsOfOneWorkSpace",
-    workSpaceController.getAllTicketsOfOneWorkSpace
+    "/getAllBoardsOfOneWorkSpace",
+    workSpaceController.getAllBoardsOfOneWorkSpace
   );
 
 module.exports = WorkSpaceRouter;

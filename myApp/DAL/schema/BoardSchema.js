@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const TicketSchema = new Schema(
+const BoardSchema = new Schema(
   {
     workSpaceID: {
       type: mongoose.ObjectId,
@@ -18,6 +18,6 @@ const TicketSchema = new Schema(
   }
 );
 
-TicketSchema.path("_id").ref("ticket");
+BoardSchema.path("_id").ref("board");
 
-module.exports = TicketSchema;
+module.exports = BoardSchema;

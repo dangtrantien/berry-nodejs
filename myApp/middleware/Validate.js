@@ -22,7 +22,7 @@ const workSpaceUpdateValidate = (data) => {
   return schema.validate(data);
 };
 
-const ticketUpdateValidate = (data) => {
+const boardUpdateValidate = (data) => {
   const schema = Joi.object({
     workSpaceID: Joi.string().min(3),
     name: Joi.string().min(3),
@@ -33,7 +33,7 @@ const ticketUpdateValidate = (data) => {
 
 const taskUpdateValidate = (data) => {
   const schema = Joi.object({
-    ticketID: Joi.string().min(3),
+    boardID: Joi.string().min(3),
     describe: Joi.string().min(3),
     status: Joi.string().min(3),
   });
@@ -54,7 +54,7 @@ const commentUpdateValidate = (data) => {
 module.exports = {
   userUpdateValidate,
   workSpaceUpdateValidate,
-  ticketUpdateValidate,
+  boardUpdateValidate,
   taskUpdateValidate,
   commentUpdateValidate,
 };

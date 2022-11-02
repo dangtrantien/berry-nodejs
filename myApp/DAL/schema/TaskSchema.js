@@ -4,17 +4,19 @@ const UserSchema = require("./UserSchema");
 
 const TaskSchema = new Schema(
   {
-    ticketID: {
+    boardID: {
       type: mongoose.ObjectId,
-      ref: "ticket",
+      ref: "board",
       required: true,
     },
     describe: {
       type: String,
       required: true,
     },
+    status: {
+      type: Array,
+    },
     users: [UserSchema],
-    // status: {},
   },
   {
     timestamps: true,

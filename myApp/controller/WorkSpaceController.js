@@ -21,10 +21,10 @@ class WorkSpaceController {
     res.json({ length: data.length, data: data });
   };
 
-  getAllTicketsOfOneWorkSpace = async (req, res) => {
+  getAllBoardsOfOneWorkSpace = async (req, res) => {
     const id = req.query.id;
 
-    const data = await workspaceModel.ticketAggregate(id);
+    const data = await workspaceModel.boardAggregate(id);
     if (data.length > 0) res.json(data);
     else res.json("Workspace dose not exist");
   };

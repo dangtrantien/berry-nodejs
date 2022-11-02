@@ -22,7 +22,7 @@ class TaskController {
       .findById(id)
       .then((data) => {
         if (data.length > 0) res.json(data);
-        else res.json("Ticket dose not exist");
+        else res.json("Task dose not exist");
       })
       .catch((err) => {
         throw err;
@@ -52,8 +52,8 @@ class TaskController {
     else res.json("Sorry, something went wrong");
   };
 
-  getAllTasksOfAllTickets = async (req, res) => {
-    const data = await taskModel.ticketAggregate();
+  getAllTasksOfAllBoards = async (req, res) => {
+    const data = await taskModel.boardAggregate();
     res.json({ length: data.length, data: data });
   };
 }

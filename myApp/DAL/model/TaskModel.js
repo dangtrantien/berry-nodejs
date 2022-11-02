@@ -6,18 +6,18 @@ class TaskModel extends BaseModel {
     super("task", TaskSchema);
   }
 
-  //Liên kết task vs ticket
-  ticketAggregate = async function () {
+  //Liên kết task vs board
+  boardAggregate = async function () {
     const agg = [
       {
         $lookup: {
-          from: "tickets",
-          localField: "ticketID",
+          from: "boards",
+          localField: "boardID",
           foreignField: "_id",
-          as: "ticketID",
+          as: "boardID",
         },
       },
-      { $unwind: "$ticketID" },
+      { $unwind: "$boardID" },
     ];
 
     const result = await this.model.aggregate(agg);
