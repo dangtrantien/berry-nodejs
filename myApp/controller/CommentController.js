@@ -1,6 +1,7 @@
 const UserModel = require("../DAL/model/UserModel");
 const TaskModel = require("../DAL/model/TaskModel");
 const CommentModel = require("../DAL/model/CommentModel");
+const upload = require('../middleware/Upload')
 
 const userModel = new UserModel();
 const taskModel = new TaskModel();
@@ -9,9 +10,9 @@ const commentModel = new CommentModel();
 class CommentController {
   addComment = async (req, res) => {
     try {
-      const { taskID } = req.params;
+      const taskID = req.body.taskID;
       const message = req.body.message;
-      const senderID = req.senderID;
+      const senderID = req.body.senderID;
 
       const post = await commentModel.addCommentInTask(
         taskID,

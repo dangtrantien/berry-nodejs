@@ -20,7 +20,7 @@ class boardController {
     res.json({ length: data.length, data: data });
   };
 
-  getAllTasksOfOneBoard = async (req, res) => {
+  getBoardByID = async (req, res) => {
     const id = req.query.id;
 
     const data = await boardModel.taskAggregate(id);

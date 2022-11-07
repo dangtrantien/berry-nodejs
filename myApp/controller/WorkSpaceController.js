@@ -21,7 +21,7 @@ class WorkSpaceController {
     res.json({ length: data.length, data: data });
   };
 
-  getAllBoardsOfOneWorkSpace = async (req, res) => {
+  getWorkSpaceByID = async (req, res) => {
     const id = req.query.id;
 
     const data = await workspaceModel.boardAggregate(id);
