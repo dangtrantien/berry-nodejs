@@ -15,6 +15,11 @@ class TaskController {
       });
   };
 
+  getAllTasksOfAllBoards = async (req, res) => {
+    const data = await taskModel.boardAggregate();
+    res.json({ length: data.length, data: data });
+  };
+
   getTaskById = (req, res) => {
     const id = req.query.id;
 
@@ -50,11 +55,6 @@ class TaskController {
 
     if (result) res.json("Succesfully delete");
     else res.json("Sorry, something went wrong");
-  };
-
-  getAllTasksOfAllBoards = async (req, res) => {
-    const data = await taskModel.boardAggregate();
-    res.json({ length: data.length, data: data });
   };
 }
 
