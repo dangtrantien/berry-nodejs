@@ -5,11 +5,11 @@ const CommentController = require("../controller/CommentController");
 const commentController = new CommentController();
 
 CommentRouter
-  .get("/:taskID", commentController.getConversationByTaskID)
   .post("/addComment", commentController.addComment)
+  .get("/getConversationByTaskID", commentController.getConversationByTaskID)
   .delete("/deleteCommentById", commentController.deleteCommentById)
   .put(
-    "/:taskID/markConversationReadByTaskID",
+    "/markConversationReadByTaskID",
     commentController.markConversationReadByTaskID
   );
 

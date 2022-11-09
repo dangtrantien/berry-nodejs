@@ -17,7 +17,7 @@ class UserController {
     // const user = await newUser.save();
     // res.send(user);
 
-    const newUser = req.body.newUser;
+    const newUser = req.body.user;
     // newUser:{
     //     name,
     //     email,
@@ -91,7 +91,7 @@ class UserController {
   };
 
   updateUserById = async (req, res) => {
-    const { value, error } = userUpdateValidate(req.body);
+    const { value, error } = userUpdateValidate(req.body.user);
     if (error) return res.status(400).send(error.details[0].message);
 
     // UserModel.findOneAndUpdate(

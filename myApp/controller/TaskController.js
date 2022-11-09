@@ -5,7 +5,7 @@ const taskModel = new TaskModel();
 
 class TaskController {
   createTask = async (req, res) => {
-    const newTask = req.body.newTask;
+    const newTask = req.body.task;
 
     taskModel
       .createNew(newTask)
@@ -35,7 +35,7 @@ class TaskController {
   };
 
   updateTaskById = async (req, res) => {
-    const { value, error } = taskUpdateValidate(req.body);
+    const { value, error } = taskUpdateValidate(req.body.task);
     if (error) return res.status(400).send(error.details[0].message);
 
     const id = req.query.id;

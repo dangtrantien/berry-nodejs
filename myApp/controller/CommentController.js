@@ -1,7 +1,7 @@
 const UserModel = require("../DAL/model/UserModel");
 const TaskModel = require("../DAL/model/TaskModel");
 const CommentModel = require("../DAL/model/CommentModel");
-const upload = require('../middleware/Upload')
+const upload = require("../middleware/Upload");
 
 const userModel = new UserModel();
 const taskModel = new TaskModel();
@@ -12,7 +12,7 @@ class CommentController {
     try {
       const taskID = req.body.taskID;
       const message = req.body.message;
-      const senderID = req.body.senderID;
+      const senderID = req.senderID;
 
       const post = await commentModel.addCommentInTask(
         taskID,
@@ -30,7 +30,7 @@ class CommentController {
 
   getConversationByTaskID = async (req, res) => {
     try {
-      const { taskID } = req.params;
+      const taskID = req.query.id;
       const task = await taskModel.findById(taskID);
       if (!task) {
         return res.status(400).json({
@@ -38,7 +38,7 @@ class CommentController {
           message: "No task exists for this id",
         });
       }
-
+      console.log("task", task);
       const users = await userModel.findById(task[0].userID);
       const options = {
         page: parseInt(req.query.page) || 0,
@@ -62,7 +62,7 @@ class CommentController {
 
   markConversationReadByTaskID = async (req, res) => {
     try {
-      const { taskID } = req.params;
+      const taskID = req.query.id;
       const task = await taskModel.findById(taskID);
       if (!task) {
         return res.status(400).json({
