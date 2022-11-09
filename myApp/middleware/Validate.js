@@ -44,7 +44,6 @@ const taskUpdateValidate = (data) => {
 const commentUpdateValidate = (data) => {
   const schema = Joi.object({
     message: Joi.string(),
-    senderID: Joi.string(),
     taskID: Joi.string(),
   });
 

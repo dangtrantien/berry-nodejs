@@ -6,7 +6,7 @@ const workspaceModel = new WorkSpaceModel();
 // id, userid,workSpacename
 class WorkSpaceController {
   createWorkSpace = async (req, res) => {
-    const newWorkSpace = req.body.newWorkSpace;
+    const newWorkSpace = req.body.workSpace;
 
     workspaceModel
       .createNew(newWorkSpace)
@@ -44,7 +44,7 @@ class WorkSpaceController {
   };
 
   updateWorkSpaceById = async (req, res) => {
-    const { value, error } = workSpaceUpdateValidate(req.body);
+    const { value, error } = workSpaceUpdateValidate(req.body.workSpace);
     if (error) return res.status(400).send(error.details[0].message);
 
     const id = req.query.id;

@@ -5,7 +5,7 @@ const boardModel = new BoardModel();
 
 class boardController {
   createBoard = async (req, res) => {
-    const newBoard = req.body.newBoard;
+    const newBoard = req.body.board;
 
     boardModel
       .createNew(newBoard)
@@ -29,7 +29,7 @@ class boardController {
   };
 
   updateBoardById = async (req, res) => {
-    const { value, error } = boardUpdateValidate(req.body);
+    const { value, error } = boardUpdateValidate(req.body.board);
     if (error) return res.status(400).send(error.details[0].message);
 
     const id = req.query.id;
