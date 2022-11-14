@@ -18,8 +18,8 @@ class UserModel extends BaseModel {
   };
 
   //Tạo token cho user
-  generateAccessToken = function (email) {
-    return jwt.sign({ email }, process.env.TOKEN_SECRET);
+  generateAccessToken = function (id) {
+    return jwt.sign({ id }, process.env.TOKEN_SECRET);
   };
 }
 

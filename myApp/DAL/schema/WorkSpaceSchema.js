@@ -12,6 +12,9 @@ const WorkSpaceSchema = new Schema(
       ref: "user",
       required: true,
     },
+    userIDs: {
+      type: Array.of(mongoose.Types.ObjectId),
+    },
   },
   {
     timestamps: true,

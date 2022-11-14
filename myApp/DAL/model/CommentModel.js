@@ -1,3 +1,4 @@
+const mongoose = require("mongoose");
 const CommentSchema = require("../schema/CommentSchema");
 const BaseModel = require("./baseModel");
 
@@ -50,8 +51,8 @@ class CommentModel extends BaseModel {
 
   getConversationByTaskId = async function (taskID, options = {}) {
     try {
-      return this.model.aggregate([
-        { $match: { taskID } },
+      const aggregate = await this.model.aggregate([
+        { $match: { taskID: mongoose.Types.ObjectId(taskID) } },
         { $sort: { createdAt: -1 } },
         // do a join on another table called users, and
         // get me a user whose _id = senderID
@@ -69,6 +70,8 @@ class CommentModel extends BaseModel {
         { $limit: options.limit },
         { $sort: { createdAt: 1 } },
       ]);
+
+      return aggregate;
     } catch (error) {
       throw error;
     }
@@ -76,7 +79,7 @@ class CommentModel extends BaseModel {
 
   markMessageRead = async function (taskID, currentUserOnlineId) {
     try {
-      return this.model.updateMany(
+      const aggregate = this.model.updateMany(
         {
           taskID,
           "readByRecipients.readByUserID": { $ne: currentUserOnlineId },
@@ -90,6 +93,8 @@ class CommentModel extends BaseModel {
           multi: true,
         }
       );
+
+      return aggregate;
     } catch (error) {
       throw error;
     }

@@ -15,13 +15,19 @@ const UserSchema = new Schema(
       type: String,
       required: true,
     },
+    avatar: {
+      type: String, //base64
+    },
     gender: {
       type: String,
     },
     address: {
       type: String,
     },
-    avatar: {
+    group: {
+      type: String, //base64
+    },
+    position: {
       type: String, //base64
     },
   },

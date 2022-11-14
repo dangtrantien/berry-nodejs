@@ -195,7 +195,7 @@ class UserController {
         );
         if (!loginPassword) return res.status(400).send("Password Incorrect");
         else {
-          const token = userModel.generateAccessToken({ email: email });
+          const token = userModel.generateAccessToken({ _id: data[0]._id });
 
           res.json({ existed: true, token: token, id: data[0]._id });
         }

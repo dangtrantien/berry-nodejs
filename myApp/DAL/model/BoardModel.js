@@ -7,6 +7,15 @@ class BoardModel extends BaseModel {
     super("board", BoardSchema);
   }
 
+  createNewBoard = async function (userID, data) {
+    const userIDs = [];
+    userIDs.push(mongoose.Types.ObjectId(userID));
+
+    data.userIDs = userIDs;
+
+    return this.model.create(data);
+  };
+
   //Liên kết board vs workspace
   workspaceAggregate = async function () {
     const agg = [
@@ -25,7 +34,7 @@ class BoardModel extends BaseModel {
 
     return result;
   };
-  
+
   //Liên kết 1 board vs task
   taskAggregate = async function (id) {
     const agg = [

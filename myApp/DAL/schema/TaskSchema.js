@@ -1,23 +1,24 @@
-const { Int32 } = require("mongodb");
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const UserSchema = require("./UserSchema");
 
 const TaskSchema = new Schema(
   {
-    boardID: {
-      type: mongoose.ObjectId,
-      ref: "board",
-      required: true,
-    },
     describe: {
       type: String,
       required: true,
     },
     status: {
       type: Number,
+      required: true,
     },
-    users: [UserSchema],
+    boardID: {
+      type: mongoose.ObjectId,
+      ref: "board",
+      required: true,
+    },
+    userIDs: {
+      type: Array.of(mongoose.Types.ObjectId),
+    },
   },
   {
     timestamps: true,
