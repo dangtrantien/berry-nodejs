@@ -7,10 +7,11 @@ const boardModel = new BoardModel();
 class boardController {
   createBoard = async (req, res) => {
     const newBoard = req.body.board;
-    const userID = req.user;
+    // const userID = req.user;
 
     boardModel
-      .createNewBoard(userID, newBoard)
+      // .createNewBoard(userID, newBoard)
+      .createNew(newBoard)
       .then((data) => res.send(data))
       .catch((err) => {
         throw err;

@@ -8,7 +8,7 @@ const workspaceModel = new WorkSpaceModel();
 class WorkSpaceController {
   createWorkSpace = async (req, res) => {
     const newWorkSpace = req.body.workSpace;
-    newWorkSpace.userID = req.user;
+    // newWorkSpace.userID = req.user;
 
     workspaceModel
       .createNew(newWorkSpace)
