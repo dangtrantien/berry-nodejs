@@ -10,9 +10,9 @@ const commentModel = new CommentModel();
 class CommentController {
   addComment = async (req, res) => {
     try {
-      const taskID = req.body.taskID;
-      const message = req.body.message;
-      const senderID = req.senderID;
+      const taskID = req.body.comment.taskID;
+      const message = req.body.comment.message;
+      const senderID = req.user;
 
       const post = await commentModel.addCommentInTask(
         taskID,
@@ -28,7 +28,7 @@ class CommentController {
     }
   };
 
-  getConversationByTaskID = async (req, res) => {
+  getCommentByTaskID = async (req, res) => {
     try {
       const taskID = req.query.id;
       const task = await taskModel.findById(taskID);
@@ -38,8 +38,8 @@ class CommentController {
           message: "No task exists for this id",
         });
       }
-      console.log("task", task);
-      const users = await userModel.findById(task[0].userID);
+
+      const users = await userModel.findById(task[0].userIDs);
       const options = {
         page: parseInt(req.query.page) || 0,
         limit: parseInt(req.query.limit) || 10,
@@ -60,7 +60,7 @@ class CommentController {
     }
   };
 
-  markConversationReadByTaskID = async (req, res) => {
+  markCommentReadByTaskID = async (req, res) => {
     try {
       const taskID = req.query.id;
       const task = await taskModel.findById(taskID);
@@ -71,7 +71,7 @@ class CommentController {
         });
       }
 
-      const currentLoggedUser = req.userId;
+      const currentLoggedUser = req.user;
       const result = await commentModel.markMessageRead(
         taskID,
         currentLoggedUser
@@ -79,9 +79,17 @@ class CommentController {
 
       return res.status(200).json({ success: true, data: result });
     } catch (error) {
-      console.log(error);
-      return res.status(500).json({ success: false, error });
+      return res.status(500).json({ success: false, error: error });
     }
+  };
+
+  updateCommentById = async (req, res) => {
+    const id = req.query.id;
+    const comment = req.body.comment;
+    const result = await commentModel.update(id, comment);
+
+    if (result) res.json("Succesfully update");
+    else res.json("Sorry, something went wrong");
   };
 
   deleteCommentById = async (req, res) => {

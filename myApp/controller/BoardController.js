@@ -1,3 +1,4 @@
+const mongoose = require("mongoose");
 const { boardUpdateValidate } = require("../middleware/Validate.js");
 const BoardModel = require("../DAL/model/BoardModel");
 
@@ -6,8 +7,10 @@ const boardModel = new BoardModel();
 class boardController {
   createBoard = async (req, res) => {
     const newBoard = req.body.board;
+    // const userID = req.user;
 
     boardModel
+      // .createNewBoard(userID, newBoard)
       .createNew(newBoard)
       .then((data) => res.send(data))
       .catch((err) => {
@@ -33,6 +36,7 @@ class boardController {
     if (error) return res.status(400).send(error.details[0].message);
 
     const id = req.query.id;
+
     const result = await boardModel.update(id, value);
 
     if (result) res.send({ success: true, message: "Succesfully updated" });

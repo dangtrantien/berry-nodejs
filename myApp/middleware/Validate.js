@@ -17,6 +17,7 @@ const workSpaceUpdateValidate = (data) => {
   const schema = Joi.object({
     name: Joi.string(),
     userID: Joi.string(),
+    userIDs: Joi.array(),
   });
 
   return schema.validate(data);
@@ -24,8 +25,9 @@ const workSpaceUpdateValidate = (data) => {
 
 const boardUpdateValidate = (data) => {
   const schema = Joi.object({
-    workSpaceID: Joi.string(),
     name: Joi.string(),
+    workSpaceID: Joi.string(),
+    userIDs: Joi.array(),
   });
 
   return schema.validate(data);
@@ -33,9 +35,10 @@ const boardUpdateValidate = (data) => {
 
 const taskUpdateValidate = (data) => {
   const schema = Joi.object({
-    boardID: Joi.string(),
     describe: Joi.string(),
     status: Joi.number().max(3),
+    boardID: Joi.string(),
+    userIDs: Joi.array(),
   });
 
   return schema.validate(data);

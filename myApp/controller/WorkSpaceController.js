@@ -1,3 +1,4 @@
+const mongoose = require("mongoose");
 const { workSpaceUpdateValidate } = require("../middleware/Validate.js");
 const WorkSpaceModel = require("../DAL/model/WorkSpaceModel");
 
@@ -7,6 +8,7 @@ const workspaceModel = new WorkSpaceModel();
 class WorkSpaceController {
   createWorkSpace = async (req, res) => {
     const newWorkSpace = req.body.workSpace;
+    // newWorkSpace.userID = req.user;
 
     workspaceModel
       .createNew(newWorkSpace)
@@ -48,6 +50,7 @@ class WorkSpaceController {
     if (error) return res.status(400).send(error.details[0].message);
 
     const id = req.query.id;
+
     const result = await workspaceModel.update(id, value);
 
     if (result) res.send({ success: true, message: "Succesfully updated" });
