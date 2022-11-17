@@ -10,17 +10,10 @@ const commentModel = new CommentModel();
 class CommentController {
   addComment = async (req, res) => {
     try {
-      const taskID = req.body.comment.taskID;
-      const message = req.body.comment.message;
-      const senderID = req.user;
+      const comment = req.body.comment;
+      comment.senderID = req.user;
 
-      const post = await commentModel.addCommentInTask(
-        taskID,
-        message,
-        senderID
-      );
-
-      global.io.sockets.in(taskID).emit("new message", { message: post });
+      const post = await commentModel.addCommentInTask(comment);
 
       return res.status(200).json({ success: true, post });
     } catch (error) {
@@ -45,41 +38,15 @@ class CommentController {
         limit: parseInt(req.query.limit) || 10,
       };
 
-      const conversation = await commentModel.getConversationByTaskId(
-        taskID,
-        options
-      );
+      const comment = await commentModel.getCommentByTaskId(taskID, options);
 
       return res.status(200).json({
         success: true,
-        conversation,
+        comment,
         users,
       });
     } catch (error) {
       return res.status(500).json({ success: false, error });
-    }
-  };
-
-  markCommentReadByTaskID = async (req, res) => {
-    try {
-      const taskID = req.query.id;
-      const task = await taskModel.findById(taskID);
-      if (!task) {
-        return res.status(400).json({
-          success: false,
-          message: "No task exists for this id",
-        });
-      }
-
-      const currentLoggedUser = req.user;
-      const result = await commentModel.markMessageRead(
-        taskID,
-        currentLoggedUser
-      );
-
-      return res.status(200).json({ success: true, data: result });
-    } catch (error) {
-      return res.status(500).json({ success: false, error: error });
     }
   };
 

@@ -6,8 +6,7 @@ const WorkSpaceController = require("../controller/WorkSpaceController.js");
 const workSpaceController = new WorkSpaceController();
 
 WorkSpaceRouter
-  // .post("/createWorkSpace", auth, workSpaceController.createWorkSpace)
-  .post("/createWorkSpace", workSpaceController.createWorkSpace)
+  .post("/createWorkSpace", auth, workSpaceController.createWorkSpace)
   .put("/updateWorkSpaceById", workSpaceController.updateWorkSpaceById)
   .delete("/deleteWorkSpaceById", workSpaceController.deleteWorkSpaceById)
   .get("/getWorkSpaceByID", workSpaceController.getWorkSpaceByID)

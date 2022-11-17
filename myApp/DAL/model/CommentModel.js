@@ -7,14 +7,9 @@ class CommentModel extends BaseModel {
     super("comment", CommentSchema);
   }
 
-  addCommentInTask = async function (taskID, message, senderID) {
+  addCommentInTask = async function (data) {
     try {
-      const post = await this.model.create({
-        taskID,
-        message,
-        senderID,
-        readByRecipients: { readByUserID: senderID },
-      });
+      const post = await this.model.create(data);
 
       const aggregate = await this.model.aggregate([
         // get post where _id = post._id
@@ -49,7 +44,7 @@ class CommentModel extends BaseModel {
     }
   };
 
-  getConversationByTaskId = async function (taskID, options = {}) {
+  getCommentByTaskId = async function (taskID, options = {}) {
     try {
       const aggregate = await this.model.aggregate([
         { $match: { taskID: mongoose.Types.ObjectId(taskID) } },
@@ -70,29 +65,6 @@ class CommentModel extends BaseModel {
         { $limit: options.limit },
         { $sort: { createdAt: 1 } },
       ]);
-
-      return aggregate;
-    } catch (error) {
-      throw error;
-    }
-  };
-
-  markMessageRead = async function (taskID, currentUserOnlineId) {
-    try {
-      const aggregate = this.model.updateMany(
-        {
-          taskID,
-          "readByRecipients.readByUserID": { $ne: currentUserOnlineId },
-        },
-        {
-          $addToSet: {
-            readByRecipients: { readByUserID: currentUserOnlineId },
-          },
-        },
-        {
-          multi: true,
-        }
-      );
 
       return aggregate;
     } catch (error) {

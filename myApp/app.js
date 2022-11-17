@@ -4,8 +4,7 @@ const cors = require("cors");
 const app = express();
 const PORT = process.env.PORT || 3002;
 const Router = require("./router/index");
-const WebSockets = require("./util/WebSockets");
-const socketio = require("socket.io");
+const { WebSockets } = require("./util/WebSockets");
 
 //database connection
 const database = require("./DAL/database");
@@ -20,49 +19,6 @@ app.use(cors());
 //Route init
 Router(app);
 
-// //integrating socket.io
-// socket = io(http);
-// //socket.io setup event listener
-// socket.on("connection", (socket) => {
-//   console.log("a user connected");
-
-//   socket.on("chat message", (msg) => {
-//     console.log("message: " + msg);
-//     //broadcast message to everyone in port:5000 except yourself.
-//     socket.broadcast.emit("received", { content: msg });
-//   });
-
-//   //Someone is typing
-//   socket.on("typing", (data) => {
-//     socket.broadcast.emit("notifyTyping", {
-//       user: data.user,
-//       message: data.message,
-//     });
-//   });
-
-//   //when soemone stops typing
-//   socket.on("stopTyping", () => {
-//     socket.broadcast.emit("notifyStopTyping");
-//   });
-
-//   socket.on("disconnect", () => {
-//     console.log("user disconnected");
-//   });
-
-//   //save chat to the database
-//   mongodb.connect().then((err, res) => {
-//     if (err) throw err;
-//     console.log("Successfully connect to mongoDB");
-
-//     let chatMessage = new Comment({ content: msg, sender: "Anonymous" });
-//     chatMessage.save();
-//   });
-// });
-
-// http.listen(PORT, async () => {
-//   console.log(`Server listening on port ${PORT}`);
-// });
-
 const server = app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
 
@@ -73,6 +29,5 @@ const server = app.listen(PORT, () => {
   });
 });
 
-/** Create socket connection */
-global.io = socketio(server);
-global.io.on("connection", WebSockets.connection);
+//Create socket connection
+WebSockets(server);
