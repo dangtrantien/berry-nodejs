@@ -1,24 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-//Trạng thái đã xem comment
-const ReadByRecipientSchema = new mongoose.Schema(
-  {
-    _id: false,
-    readByUserID: {
-      type: mongoose.ObjectId,
-      ref: "user",
-    },
-    readAt: {
-      type: Date,
-      default: Date.now(),
-    },
-  },
-  {
-    timestamps: false,
-  }
-);
-
 const CommentSchema = Schema(
   {
     message: {
@@ -34,7 +16,6 @@ const CommentSchema = Schema(
       ref: "task",
       required: true,
     },
-    readByRecipients: [ReadByRecipientSchema],
   },
   {
     timestamps: true,

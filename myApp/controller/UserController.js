@@ -119,7 +119,7 @@ class UserController {
       let uploadImage = await upload(value.avatar);
 
       let img = {
-        url: `http://x-career-06-team1-be.herokuapp.com/static/images/${Date.now().toString()}-image.png`,
+        url: `https://x-career-06-team1.as.r.appspot.com/static/images/${Date.now().toString()}-image.png`,
         // url: `http://localhost:3002/static/images/${Date.now().toString()}-image.png`,
         data: fs.writeFile(
           path.join(`./myApp/public/images/${Date.now().toString()}-image.png`),

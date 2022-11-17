@@ -1,14 +1,12 @@
-const mongoose = require("mongoose");
 const { workSpaceUpdateValidate } = require("../middleware/Validate.js");
 const WorkSpaceModel = require("../DAL/model/WorkSpaceModel");
 
 const workspaceModel = new WorkSpaceModel();
 
-// id, userid,workSpacename
 class WorkSpaceController {
   createWorkSpace = async (req, res) => {
     const newWorkSpace = req.body.workSpace;
-    // newWorkSpace.userID = req.user;
+    newWorkSpace.userID = req.user;
 
     workspaceModel
       .createNew(newWorkSpace)

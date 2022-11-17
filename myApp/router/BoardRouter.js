@@ -6,8 +6,7 @@ const BoardController = require("../controller/BoardController.js");
 const boardController = new BoardController();
 
 BoardRouter
-  // .post("/createBoard", auth, boardController.createBoard)
-  .post("/createBoard", boardController.createBoard)
+  .post("/createBoard", auth, boardController.createBoard)
   .put("/updateBoardById", boardController.updateBoardById)
   .delete("/deleteBoardById", boardController.deleteBoardById)
   .get("/getBoardByID", boardController.getBoardByID)

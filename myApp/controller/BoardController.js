@@ -1,4 +1,3 @@
-const mongoose = require("mongoose");
 const { boardUpdateValidate } = require("../middleware/Validate.js");
 const BoardModel = require("../DAL/model/BoardModel");
 
@@ -7,11 +6,10 @@ const boardModel = new BoardModel();
 class boardController {
   createBoard = async (req, res) => {
     const newBoard = req.body.board;
-    // const userID = req.user;
+    const userID = req.user;
 
     boardModel
-      // .createNewBoard(userID, newBoard)
-      .createNew(newBoard)
+      .createNewBoard(userID, newBoard)
       .then((data) => res.send(data))
       .catch((err) => {
         throw err;
