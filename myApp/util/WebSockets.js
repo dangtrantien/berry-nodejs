@@ -14,24 +14,24 @@ const WebSockets = function (server) {
       io.emit("new_task", task);
     });
 
-    socket.on("update_task", (task) => {
-      io.emit("update_task", task);
+    socket.on("update_task", (id, task) => {
+      io.in(id).emit("update_task", task);
     });
 
-    socket.on("delete_task", (task) => {
-      io.emit("delete_task", task);
+    socket.on("delete_task", (id, task) => {
+      io.in(id).emit("delete_task", task);
     });
 
     socket.on("new_comment", (comment) => {
       io.emit("new_comment", comment);
     });
 
-    socket.on("update_comment", (comment) => {
-      io.emit("update_comment", comment);
+    socket.on("update_comment", (id, comment) => {
+      io.in(id).emit("update_comment", comment);
     });
 
-    socket.on("delete_comment", (comment) => {
-      io.emit("delete_comment", comment);
+    socket.on("delete_comment", (id, comment) => {
+      io.in(id).emit("delete_comment", comment);
     });
   });
 };
