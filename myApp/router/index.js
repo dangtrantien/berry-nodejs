@@ -5,9 +5,8 @@ const TaskRouter = require("./TaskRouter.js");
 const CommentRouter = require("./CommentRouter");
 
 const router = (app) => {
-  app.get("/", (req, res, next) => {
+  app.get("/", (req, res) => {
     res.send("This is homepage");
-    next();
   });
   app.use("/api/users", UserRouter);
   app.use("/api/workSpaces", WorkSpaceRouter);

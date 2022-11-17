@@ -1,42 +1,38 @@
-const socketio = require("socket.io");
-const CommentController = require("../controller/CommentController");
-
-const commentController = new CommentController();
+const { Server } = require("socket.io");
 
 const WebSockets = function (server) {
-  const io = socketio(server);
+  const io = new Server(server);
 
   io.on("connection", (socket) => {
     console.log("a user connected");
-
-    socket.on("new-task", (msg) => {
-      // global.io.sockets
-      //   .in(comment.taskID)
-      //   .emit("new comment", { message: post });
-      io.emit("task", { message: msg });
-    });
-
-    socket.on("new-comment", async (msg) => {
-      // global.io.sockets
-      //   .in(comment.taskID)
-      //   .emit("new comment", { message: post });
-      commentController.addComment.then((data) => {
-        console.log(data);
-      });
-      io.emit("comment", { message: msg });
-    });
 
     socket.on("disconnect", () => {
       console.log("user disconnected");
     });
 
-    // //save chat to the database
-    // mongodb.connect().then((err, res) => {
-    //   if (err) throw err;
-    //   console.log("Successfully connect to mongoDB");
+    socket.on("new_task", (task) => {
+      io.emit("new_task", task);
+    });
 
-    //   let chatMessage = new Comment({ content: msg, sender: "Anonymous" });
-    //   chatMessage.save();
+    socket.on("update_task", (task) => {
+      io.emit("update_task", task);
+    });
+
+    socket.on("delete_task", (task) => {
+      io.emit("delete_task", task);
+    });
+
+    socket.on("new_comment", (comment) => {
+      io.emit("new_comment", comment);
+    });
+
+    socket.on("update_comment", (comment) => {
+      io.emit("update_comment", comment);
+    });
+
+    socket.on("delete_comment", (comment) => {
+      io.emit("delete_comment", comment);
+    });
   });
 };
 

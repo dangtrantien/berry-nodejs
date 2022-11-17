@@ -55,16 +55,25 @@ class CommentController {
     const comment = req.body.comment;
     const result = await commentModel.update(id, comment);
 
-    if (result) res.json("Succesfully update");
-    else res.json("Sorry, something went wrong");
+    if (result)
+      res
+        .status(200)
+        .json({ success: true, message: "Succesfully updated", data: result });
+    else
+      res
+        .status(500)
+        .json({ success: false, message: "Sorry, something went wrong" });
   };
 
   deleteCommentById = async (req, res) => {
     const id = req.query.id;
     const result = await commentModel.delete(id);
 
-    if (result) res.json("Succesfully delete");
-    else res.json("Sorry, something went wrong");
+    if (result) res.status(200).json("Succesfully delete");
+    else
+      res
+        .status(500)
+        .json({ success: false, message: "Sorry, something went wrong" });
   };
 }
 
