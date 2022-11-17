@@ -9,9 +9,14 @@ class TaskController {
 
     taskModel
       .createNew(newTask)
-      .then((data) => res.send(data))
+      .then((data) =>
+        res.send({ success: true, data: data })
+      )
       .catch((err) => {
-        throw err;
+        res.send({
+          success: false,
+          message: err,
+        });
       });
   };
 
@@ -42,7 +47,8 @@ class TaskController {
 
     const result = await taskModel.update(id, value);
 
-    if (result) res.send({ success: true, message: "Succesfully updated" });
+    if (result)
+      res.send({ success: true, message: "Succesfully updated", data: result });
     else
       res.send({
         success: false,
@@ -54,8 +60,8 @@ class TaskController {
     const id = req.query.id;
     const result = await taskModel.delete(id);
 
-    if (result) res.json("Succesfully delete");
-    else res.json("Sorry, something went wrong");
+    if (result) res.json({ success: true, message: "Succesfully delete" });
+    else res.json({ success: false, message: "Sorry, something went wrong" });
   };
 }
 
