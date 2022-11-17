@@ -18,8 +18,8 @@ const WebSockets = function (server) {
       io.in(id).emit("update_task", task);
     });
 
-    socket.on("delete_task", (id, task) => {
-      io.in(id).emit("delete_task", task);
+    socket.on("delete_task", (id) => {
+      io.in(id).emit("delete_task");
     });
 
     socket.on("new_comment", (comment) => {
@@ -30,8 +30,8 @@ const WebSockets = function (server) {
       io.in(id).emit("update_comment", comment);
     });
 
-    socket.on("delete_comment", (id, comment) => {
-      io.in(id).emit("delete_comment", comment);
+    socket.on("delete_comment", (id) => {
+      io.in(id).emit("delete_comment");
     });
   });
 };
