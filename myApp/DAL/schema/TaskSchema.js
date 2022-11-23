@@ -3,9 +3,12 @@ const Schema = mongoose.Schema;
 
 const TaskSchema = new Schema(
   {
-    describe: {
+    task: {
       type: String,
       required: true,
+    },
+    describe: {
+      type: String,
     },
     status: {
       type: Number,
