@@ -35,6 +35,7 @@ const boardUpdateValidate = (data) => {
 
 const taskUpdateValidate = (data) => {
   const schema = Joi.object({
+    task: Joi.string(),
     describe: Joi.string(),
     status: Joi.number().max(3),
     boardID: Joi.string(),
