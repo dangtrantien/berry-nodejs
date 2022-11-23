@@ -30,7 +30,7 @@ class WorkSpaceController {
   };
 
   getWorkSpaceByName = (req, res) => {
-    const name = req.body.name;
+    const name = req.query.name;
 
     workspaceModel
       .findByName(name)
