@@ -201,7 +201,7 @@ class UserController {
         }
       } else {
         //Không tồn tại
-        res.json({ existed: false, token: "", id: "" });
+        res.status(400).send({ existed: false, token: "", id: "" });
       }
     });
   };
