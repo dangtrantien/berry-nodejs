@@ -1,37 +1,53 @@
 const { Server } = require("socket.io");
+const cors = require("cors");
 
 const WebSockets = function (server) {
-  const io = new Server(server);
+  const io = new Server(server, {
+    cors: {
+      origin: "http://localhost:3000",
+      methods: ["GET", "POST"],
+      maxHttpBufferSize: 1e8,
+    },
+  });
 
   io.on("connection", (socket) => {
-    console.log("a user connected");
+    console.log(`User connected: ${socket.id}`);
 
     socket.on("disconnect", () => {
-      console.log("user disconnected");
+      console.log(`User disconnected: ${socket.id}`);
     });
 
-    socket.on("new_task", (task) => {
-      io.emit("new_task", task);
+    socket.on("user", (data) => {
+      io.emit("edit_user", data);
     });
 
-    socket.on("update_task", (id, task) => {
-      io.in(id).emit("update_task", task);
+    socket.on("workspace", (data) => {
+      io.emit("edit_workspace", data);
+      if (data === "Succesfully delete") {
+        io.emit("delete_workspace");
+      }
     });
 
-    socket.on("delete_task", (id) => {
-      io.in(id).emit("delete_task");
+    socket.on("board", (data) => {
+      io.emit("edit_board", data);
+      if (data === "Succesfully delete") {
+        io.emit("delete_board");
+      }
     });
 
-    socket.on("new_comment", (comment) => {
-      io.emit("new_comment", comment);
+    socket.on("task", (data) => {
+      io.emit("edit_task", data);
+      if (data === "Succesfully delete") {
+        io.emit("delete_task");
+      }
     });
 
-    socket.on("update_comment", (id, comment) => {
-      io.in(id).emit("update_comment", comment);
-    });
-
-    socket.on("delete_comment", (id) => {
-      io.in(id).emit("delete_comment");
+    socket.on("comment", (data) => {
+      io.emit("receive_comment", data);
+      io.emit("edit_comment", data);
+      if (data === "Succesfully delete") {
+        io.emit("delete_comment");
+      }
     });
   });
 };

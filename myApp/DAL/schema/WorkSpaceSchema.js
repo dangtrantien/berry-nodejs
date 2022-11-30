@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const UserSchema = require("./UserSchema");
 const Schema = mongoose.Schema;
 
 const WorkSpaceSchema = new Schema(
@@ -13,7 +14,11 @@ const WorkSpaceSchema = new Schema(
       required: true,
     },
     userIDs: {
-      type: Array.of(mongoose.Types.ObjectId),
+      type: Array.of(UserSchema),
+    },
+    logo: {
+      type: String,
+      default: "",
     },
   },
   {

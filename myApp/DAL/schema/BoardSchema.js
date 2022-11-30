@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const UserSchema = require("./UserSchema");
 const Schema = mongoose.Schema;
 
 const BoardSchema = new Schema(
@@ -12,8 +13,12 @@ const BoardSchema = new Schema(
       ref: "workspace",
       required: true,
     },
+    bgImg: {
+      type: String,
+      default: "",
+    },
     userIDs: {
-      type: Array.of(mongoose.Types.ObjectId),
+      type: Array.of(UserSchema),
     },
   },
   {

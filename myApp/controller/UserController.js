@@ -6,7 +6,6 @@ const path = require("path");
 const bcrypt = require("bcryptjs");
 
 const userModel = new UserModel();
-const saltRounds = 10;
 
 class UserController {
   createUser = async (req, res) => {
@@ -25,7 +24,7 @@ class UserController {
     // }
 
     //Mã hóa password
-    const hashPassword = bcrypt.hashSync(newUser.password, saltRounds);
+    const hashPassword = bcrypt.hashSync(newUser.password, 10);
     newUser.passwordHash = hashPassword;
 
     //Kiểm tra email có tồn tại trong db
@@ -110,7 +109,7 @@ class UserController {
     const id = req.query.id;
 
     if (value.password) {
-      const hashPassword = bcrypt.hashSync(value.password, saltRounds);
+      const hashPassword = bcrypt.hashSync(value.password, 10);
       value.passwordHash = hashPassword;
     }
 
@@ -119,8 +118,8 @@ class UserController {
       let uploadImage = await upload(value.avatar);
 
       let img = {
-        url: `https://x-career-06-team1-be.as.r.appspot.com/static/images/${Date.now().toString()}-image.png`,
-        // url: `http://localhost:3002/static/images/${Date.now().toString()}-image.png`,
+        // url: `https://x-career-06-team1-be.as.r.appspot.com/static/images/${Date.now().toString()}-image.png`,
+        url: `http://localhost:3002/static/images/${Date.now().toString()}-image.png`,
         data: fs.writeFile(
           path.join(`./myApp/public/images/${Date.now().toString()}-image.png`),
           uploadImage.data,
@@ -135,7 +134,8 @@ class UserController {
 
     const result = await userModel.update(id, value);
 
-    if (result) res.send({ success: true, message: "Succesfully updated" });
+    if (result)
+      res.send({ success: true, message: "Succesfully updated", data: result });
     else
       res.send({
         success: false,

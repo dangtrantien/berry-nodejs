@@ -16,6 +16,10 @@ const CommentSchema = Schema(
       ref: "task",
       required: true,
     },
+    img: {
+      type: String,
+      default: "",
+    },
   },
   {
     timestamps: true,

@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const UserSchema = require("./UserSchema");
 const Schema = mongoose.Schema;
 
 const TaskSchema = new Schema(
@@ -20,7 +21,7 @@ const TaskSchema = new Schema(
       required: true,
     },
     userIDs: {
-      type: Array.of(mongoose.Types.ObjectId),
+      type: Array.of(UserSchema),
     },
   },
   {
