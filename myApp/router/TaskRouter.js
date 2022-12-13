@@ -6,9 +6,9 @@ const taskController = new TaskController();
 
 TaskRouter
   .post("/createTask", taskController.createTask)
-  .put("/updateTaskById", taskController.updateTaskById)
-  .delete("/deleteTaskById", taskController.deleteTaskById)
-  .get("/getTaskById", taskController.getTaskById)
+  .get("/getByID", taskController.getByID)
+  .put("/updateTaskByID", taskController.updateTaskByID)
+  .delete("/deleteByID", taskController.deleteByID)
   .get("/getAllTasksOfAllBoards", taskController.getAllTasksOfAllBoards);
 
 module.exports = TaskRouter;

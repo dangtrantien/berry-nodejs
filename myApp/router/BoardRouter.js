@@ -7,9 +7,9 @@ const boardController = new BoardController();
 
 BoardRouter
   .post("/createBoard", auth, boardController.createBoard)
-  .put("/updateBoardById", boardController.updateBoardById)
-  .delete("/deleteBoardById", boardController.deleteBoardById)
-  .get("/getBoardByID", boardController.getBoardByID)
+  .get("/getByID", boardController.getByID)
+  .put("/updateBoardByID", boardController.updateBoardByID)
+  .delete("/deleteByID", boardController.deleteByID)
   .get(
     "/getAllBoardsOfAllWorkSpaces",
     boardController.getAllBoardsOfAllWorkSpaces

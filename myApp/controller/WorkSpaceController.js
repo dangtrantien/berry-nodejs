@@ -14,26 +14,7 @@ class WorkSpaceController {
     newWorkSpace.userID = req.user;
 
     const user = await userModel.findById(newWorkSpace.userID);
-    newWorkSpace.userIDs = user;
-
-    //Tải img cho workspace
-    if (newWorkSpace.logo) {
-      let uploadImage = await upload(newWorkSpace.logo);
-
-      let img = {
-        // url: `https://x-career-06-team1-be.as.r.appspot.com/static/images/${Date.now().toString()}-image.png`,
-        url: `http://localhost:3002/static/images/${Date.now().toString()}-image.png`,
-        data: fs.writeFile(
-          path.join(`./myApp/public/images/${Date.now().toString()}-image.png`),
-          uploadImage.data,
-          function (err) {
-            if (err) throw err;
-          }
-        ),
-      };
-
-      newWorkSpace.logo = img.url;
-    }
+    newWorkSpace.member = user;
 
     workspaceModel
       .createNew(newWorkSpace)
@@ -48,7 +29,7 @@ class WorkSpaceController {
     res.json({ length: data.length, data: data });
   };
 
-  getWorkSpaceByID = async (req, res) => {
+  getByID = async (req, res) => {
     const id = req.query.id;
 
     const data = await workspaceModel.boardAggregate(id);
@@ -56,7 +37,7 @@ class WorkSpaceController {
     else res.json("Workspace dose not exist");
   };
 
-  getWorkSpaceByName = (req, res) => {
+  getByName = (req, res) => {
     const name = req.query.name;
 
     workspaceModel
@@ -70,7 +51,7 @@ class WorkSpaceController {
       });
   };
 
-  updateWorkSpaceById = async (req, res) => {
+  updateWorkSpaceByID = async (req, res) => {
     const { value, error } = workSpaceUpdateValidate(req.body.workSpace);
     if (error) return res.status(400).send(error.details[0].message);
 
@@ -81,10 +62,11 @@ class WorkSpaceController {
       let uploadImage = await upload(value.logo);
 
       let img = {
-        // url: `https://x-career-06-team1-be.as.r.appspot.com/static/images/${Date.now().toString()}-image.png`,
-        url: `http://localhost:3002/static/images/${Date.now().toString()}-image.png`,
+        name: uploadImage.name,
+        url: `https://x-career-06-team1-be.as.r.appspot.com/static/images/${uploadImage.name}`,
+        // url: `http://localhost:3002/static/images/${uploadImage.name}`,
         data: fs.writeFile(
-          path.join(`./myApp/public/images/${Date.now().toString()}-image.png`),
+          path.join(`./myApp/public/images/${uploadImage.name}`),
           uploadImage.data,
           function (err) {
             if (err) throw err;
@@ -92,7 +74,10 @@ class WorkSpaceController {
         ),
       };
 
-      value.logo = img.url;
+      value.logo = {
+        name: img.name,
+        data: img.url,
+      };
     }
 
     const result = await workspaceModel.update(id, value);
@@ -106,7 +91,7 @@ class WorkSpaceController {
       });
   };
 
-  deleteWorkSpaceById = async (req, res) => {
+  deleteByID = async (req, res) => {
     const id = req.query.id;
     const result = await workspaceModel.delete(id);
 

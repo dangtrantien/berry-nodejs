@@ -11,16 +11,18 @@ const userModel = new UserModel();
 class boardController {
   createBoard = async (req, res) => {
     const newBoard = req.body.board;
-    const userID = req.user;
+    newBoard.userID = req.user;
 
-    const user = await userModel.findById(userID);
-    newBoard.userIDs = user;
+    const user = await userModel.findById(newBoard.userID);
+    newBoard.member = user;
 
     //Tải img cho background
     if (newBoard.bgImg === undefined || newBoard.bgImg === null) {
-      newBoard.bgImg =
-        // "https://x-career-06-team1-be.as.r.appspot.com/static/default-board-background-img.jpg";
-        "http://localhost:3002/static/default-board-background-img.jpg";
+      newBoard.bgImg = {
+        name: "default-board-background-img.jpg",
+        data: "https://x-career-06-team1-be.as.r.appspot.com/static/default-board-background-img.jpg",
+        // data: "http://localhost:3002/static/default-board-background-img.jpg",
+      };
     }
 
     boardModel
@@ -36,15 +38,15 @@ class boardController {
     res.json({ length: data.length, data: data });
   };
 
-  getBoardByID = async (req, res) => {
+  getByID = async (req, res) => {
     const id = req.query.id;
 
     const data = await boardModel.taskAggregate(id);
     if (data.length > 0) res.json(data);
-    else res.json("board dose not exist");
+    else res.json("Board dose not exist");
   };
 
-  updateBoardById = async (req, res) => {
+  updateBoardByID = async (req, res) => {
     const { value, error } = boardUpdateValidate(req.body.board);
     if (error) return res.status(400).send(error.details[0].message);
 
@@ -54,10 +56,11 @@ class boardController {
       let uploadImage = await upload(value.bgImg);
 
       let img = {
-        // url: `https://x-career-06-team1-be.as.r.appspot.com/static/images/${Date.now().toString()}-image.png`,
-        url: `http://localhost:3002/static/images/${Date.now().toString()}-image.png`,
+        name: uploadImage.name,
+        url: `https://x-career-06-team1-be.as.r.appspot.com/static/images/${uploadImage.name}`,
+        // url: `http://localhost:3002/static/images/${uploadImage.name}`,
         data: fs.writeFile(
-          path.join(`./myApp/public/images/${Date.now().toString()}-image.png`),
+          path.join(`./myApp/public/images/${uploadImage.name}`),
           uploadImage.data,
           function (err) {
             if (err) throw err;
@@ -65,7 +68,10 @@ class boardController {
         ),
       };
 
-      value.bgImg = img.url;
+      value.bgImg = {
+        name: img.name,
+        data: img.url,
+      };
     }
 
     const result = await boardModel.update(id, value);
@@ -79,7 +85,7 @@ class boardController {
       });
   };
 
-  deleteBoardById = async (req, res) => {
+  deleteByID = async (req, res) => {
     const id = req.query.id;
     const result = await boardModel.delete(id);
 

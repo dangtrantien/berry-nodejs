@@ -13,11 +13,19 @@ const BoardSchema = new Schema(
       ref: "workspace",
       required: true,
     },
-    bgImg: {
-      type: String,
-      default: "",
+    userID: {
+      type: mongoose.ObjectId,
+      ref: "workspace",
+      required: true,
     },
-    userIDs: {
+    bgImg: {
+      type: Object,
+      default: {
+        name: "",
+        data: "",
+      },
+    },
+    member: {
       type: Array.of(UserSchema),
     },
   },

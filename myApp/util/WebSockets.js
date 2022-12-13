@@ -1,10 +1,11 @@
 const { Server } = require("socket.io");
-const cors = require("cors");
 
 const WebSockets = function (server) {
   const io = new Server(server, {
     cors: {
-      origin: "http://localhost:3000",
+      // origin: "https://x-career-06-team1-fe.as.r.appspot.com",
+      // origin: "http://localhost:3000",
+      origin: "http://localhost:4200",
       methods: ["GET", "POST"],
       maxHttpBufferSize: 1e8,
     },
@@ -18,36 +19,23 @@ const WebSockets = function (server) {
     });
 
     socket.on("user", (data) => {
-      io.emit("edit_user", data);
+      io.emit("user", data);
     });
 
     socket.on("workspace", (data) => {
-      io.emit("edit_workspace", data);
-      if (data === "Succesfully delete") {
-        io.emit("delete_workspace");
-      }
+      io.emit("workspace", data);
     });
 
     socket.on("board", (data) => {
-      io.emit("edit_board", data);
-      if (data === "Succesfully delete") {
-        io.emit("delete_board");
-      }
+      io.emit("board", data);
     });
 
     socket.on("task", (data) => {
-      io.emit("edit_task", data);
-      if (data === "Succesfully delete") {
-        io.emit("delete_task");
-      }
+      io.emit("task", data);
     });
 
     socket.on("comment", (data) => {
-      io.emit("receive_comment", data);
-      io.emit("edit_comment", data);
-      if (data === "Succesfully delete") {
-        io.emit("delete_comment");
-      }
+      io.emit("comment", data);
     });
   });
 };

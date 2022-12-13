@@ -9,19 +9,7 @@ const userModel = new UserModel();
 
 class UserController {
   createUser = async (req, res) => {
-    // const newUser = new UserModel();
-    // newUser.name = req.body.name;
-    // newUser.password = req.body.password;
-    // newUser.email = req.body.email;
-    // const user = await newUser.save();
-    // res.send(user);
-
     const newUser = req.body.user;
-    // newUser:{
-    //     name,
-    //     email,
-    //     password
-    // }
 
     //Mã hóa password
     const hashPassword = bcrypt.hashSync(newUser.password, 10);
@@ -42,16 +30,6 @@ class UserController {
   };
 
   getAllUsers = (req, res) => {
-    // UserModel.find().exec((err, users) => {
-    //   if (err) {
-    //     res.send("Khong the lay thong tin users");
-    //   } else {
-    //     // console.log("Lay thanh cong thong tin tat ca users");
-    //     // console.log(users);
-    //     res.json(users);
-    //   }
-    // });
-
     userModel
       .getAll(req.query.skip, req.query.limit, req.query.orderBy)
       .then((data) => {
@@ -65,17 +43,7 @@ class UserController {
       });
   };
 
-  getUserById = (req, res) => {
-    // UserModel.find({ _id: req.query.id }).exec((err, user) => {
-    //   if (err) {
-    //     res.send("Khong the lay thong tin user");
-    //   } else {
-    //     // console.log("Lay thanh cong thong tin user");
-    //     // console.log(user);
-    //     res.json(user);
-    //   }
-    // });
-
+  getByID = (req, res) => {
     const id = req.query.id;
 
     userModel
@@ -89,22 +57,9 @@ class UserController {
       });
   };
 
-  updateUserById = async (req, res) => {
+  updateUserByID = async (req, res) => {
     const { value, error } = userUpdateValidate(req.body.user);
     if (error) return res.status(400).send(error.details[0].message);
-
-    // UserModel.findOneAndUpdate(
-    //   { _id: req.query.id },
-    //   value,
-    //   { new: true },
-    //   (err) => {
-    //     if (err) {
-    //       res.send("Da xay ra loi khi update thong tin");
-    //     } else {
-    //       res.send("Update thong tin thanh cong");
-    //     }
-    //   }
-    // );
 
     const id = req.query.id;
 
@@ -118,10 +73,11 @@ class UserController {
       let uploadImage = await upload(value.avatar);
 
       let img = {
-        // url: `https://x-career-06-team1-be.as.r.appspot.com/static/images/${Date.now().toString()}-image.png`,
-        url: `http://localhost:3002/static/images/${Date.now().toString()}-image.png`,
+        name: uploadImage.name,
+        url: `https://x-career-06-team1-be.as.r.appspot.com/static/images/${uploadImage.name}`,
+        // url: `http://localhost:3002/static/images/${uploadImage.name}`,
         data: fs.writeFile(
-          path.join(`./myApp/public/images/${Date.now().toString()}-image.png`),
+          path.join(`./myApp/public/images/${uploadImage.name}`),
           uploadImage.data,
           function (err) {
             if (err) throw err;
@@ -129,7 +85,10 @@ class UserController {
         ),
       };
 
-      value.avatar = img.url;
+      value.avatar = {
+        name: img.name,
+        data: img.url,
+      };
     }
 
     const result = await userModel.update(id, value);
@@ -143,15 +102,7 @@ class UserController {
       });
   };
 
-  deleteUserById = async (req, res) => {
-    // UserModel.findOneAndDelete({ _id: req.query.id }, (err) => {
-    //   if (err) {
-    //     res.send("Da co loi xay ra khi delete user");
-    //   } else {
-    //     res.send("Xoa user thanh cong");
-    //   }
-    // });
-
+  deleteByID = async (req, res) => {
     const id = req.query.id;
     const result = await userModel.delete(id);
 
@@ -161,26 +112,6 @@ class UserController {
 
   //Đăng nhập
   login = async (req, res) => {
-    // // 1. Validate user info
-    // const { error } = loginValidate(req.body);
-    // if (error) return res.status(400).send(error.details[0].message);
-
-    // // 2. Check email of user exists in db
-    // const user = await UserModel.findOne({ email: req.body.email });
-    // if (!user) return res.status(400).send("Email not exists in db");
-
-    // // 3. check password in database
-    // const loginPassword = await bcrypt.compareSync(
-    //   req.body.password,
-    //   user.passwordHash
-    // );
-    // if (!loginPassword) return res.status(400).send("Password Incorrect");
-    // // 4. generated token string
-    // const token = jwt.sign({ id: user._id }, "chuoibimatkhongthetietlo");
-    // const tokenn = jwt.sign({});
-    // // 5. Return token for user
-    // res.header("auth-token", token).send(token);
-
     const email = req.body.email;
     const password = req.body.password;
 

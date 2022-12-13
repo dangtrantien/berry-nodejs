@@ -44,7 +44,7 @@ class CommentModel extends BaseModel {
     }
   };
 
-  getCommentByTaskId = async function (taskID, options = {}) {
+  getCommentByTaskId = async function (taskID) {
     try {
       const aggregate = await this.model.aggregate([
         { $match: { taskID: mongoose.Types.ObjectId(taskID) } },
@@ -60,10 +60,6 @@ class CommentModel extends BaseModel {
           },
         },
         { $unwind: "$senderID" },
-        // apply pagination
-        { $skip: options.page * options.limit },
-        { $limit: options.limit },
-        { $sort: { createdAt: 1 } },
       ]);
 
       return aggregate;

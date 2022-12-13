@@ -8,7 +8,7 @@ const commentController = new CommentController();
 CommentRouter
   .post("/addComment", auth, commentController.addComment)
   .get("/getCommentByTaskID", commentController.getCommentByTaskID)
-  .put("/updateCommentById", commentController.updateCommentById)
-  .delete("/deleteCommentById", commentController.deleteCommentById);
+  .put("/updateCommentByID", commentController.updateCommentByID)
+  .delete("/deleteByID", commentController.deleteByID);
 
 module.exports = CommentRouter;

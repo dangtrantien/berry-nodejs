@@ -7,10 +7,10 @@ const workSpaceController = new WorkSpaceController();
 
 WorkSpaceRouter
   .post("/createWorkSpace", auth, workSpaceController.createWorkSpace)
-  .put("/updateWorkSpaceById", workSpaceController.updateWorkSpaceById)
-  .delete("/deleteWorkSpaceById", workSpaceController.deleteWorkSpaceById)
-  .get("/getWorkSpaceByID", workSpaceController.getWorkSpaceByID)
-  .get("/getWorkSpaceByName", workSpaceController.getWorkSpaceByName)
+  .get("/getByID", workSpaceController.getByID)
+  .get("/getByName", workSpaceController.getByName)
+  .put("/updateWorkSpaceByID", workSpaceController.updateWorkSpaceByID)
+  .delete("/deleteByID", workSpaceController.deleteByID)
   .get(
     "/getAllWorkSpacesOfAllUsers",
     workSpaceController.getAllWorkSpacesOfAllUsers

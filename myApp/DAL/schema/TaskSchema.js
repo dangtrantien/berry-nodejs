@@ -13,14 +13,34 @@ const TaskSchema = new Schema(
     },
     status: {
       type: Number,
-      required: true,
     },
     boardID: {
       type: mongoose.ObjectId,
       ref: "board",
       required: true,
     },
-    userIDs: {
+    image: {
+      type: Object,
+      default: {
+        name: "",
+        data: "",
+      },
+    },
+    audio: {
+      type: Object,
+      default: {
+        name: "",
+        data: "",
+      },
+    },
+    document: {
+      type: Object,
+      default: {
+        name: "",
+        data: "",
+      },
+    },
+    member: {
       type: Array.of(UserSchema),
     },
   },

@@ -13,12 +13,15 @@ const WorkSpaceSchema = new Schema(
       ref: "user",
       required: true,
     },
-    userIDs: {
+    member: {
       type: Array.of(UserSchema),
     },
     logo: {
-      type: String,
-      default: "",
+      type: Object,
+      default: {
+        name: "",
+        data: "",
+      },
     },
   },
   {

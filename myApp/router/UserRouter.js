@@ -6,10 +6,10 @@ const userController = new UserController();
 
 UserRouter
   .get("/", userController.getAllUsers)
-  .get("/getUserById", userController.getUserById)
   .post("/createUser", userController.createUser)
-  .put("/updateUserById", userController.updateUserById)
-  .delete("/deleteUserById", userController.deleteUserById)
+  .get("/getByID", userController.getByID)
+  .put("/updateUserByID", userController.updateUserByID)
+  .delete("/deleteByID", userController.deleteByID)
   .post("/login", userController.login);
 
 module.exports = UserRouter;

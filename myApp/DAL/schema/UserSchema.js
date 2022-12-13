@@ -16,8 +16,11 @@ const UserSchema = new Schema(
       required: true,
     },
     avatar: {
-      type: String, //base64
-      default: "",
+      type: Object,
+      default: {
+        name: "",
+        data: "",
+      },
     },
     gender: {
       type: String,
@@ -26,10 +29,10 @@ const UserSchema = new Schema(
       type: String,
     },
     group: {
-      type: String, //base64
+      type: String,
     },
     position: {
-      type: String, //base64
+      type: String,
     },
   },
   {
