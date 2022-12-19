@@ -18,15 +18,16 @@ const BoardSchema = new Schema(
       ref: "workspace",
       required: true,
     },
+    member: {
+      type: Array.of(UserSchema),
+    },
     bgImg: {
       type: Object,
       default: {
         name: "",
+        type: "",
         data: "",
       },
-    },
-    member: {
-      type: Array.of(UserSchema),
     },
   },
   {

@@ -1,7 +1,7 @@
 const { boardUpdateValidate } = require("../middleware/Validate.js");
 const BoardModel = require("../DAL/model/BoardModel");
 const UserModel = require("../DAL/model/UserModel");
-const upload = require("../middleware/Upload");
+const { upload } = require("../middleware/Upload");
 const fs = require("fs");
 const path = require("path");
 
@@ -20,6 +20,7 @@ class boardController {
     if (newBoard.bgImg === undefined || newBoard.bgImg === null) {
       newBoard.bgImg = {
         name: "default-board-background-img.jpg",
+        type: "image/jpg",
         data: "https://x-career-06-team1-be.as.r.appspot.com/static/default-board-background-img.jpg",
         // data: "http://localhost:3002/static/default-board-background-img.jpg",
       };
@@ -57,6 +58,7 @@ class boardController {
 
       let img = {
         name: uploadImage.name,
+        type: uploadImage.type,
         url: `https://x-career-06-team1-be.as.r.appspot.com/static/images/${uploadImage.name}`,
         // url: `http://localhost:3002/static/images/${uploadImage.name}`,
         data: fs.writeFile(
@@ -70,6 +72,7 @@ class boardController {
 
       value.bgImg = {
         name: img.name,
+        type: img.type,
         data: img.url,
       };
     }

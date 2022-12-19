@@ -3,9 +3,8 @@ const { Server } = require("socket.io");
 const WebSockets = function (server) {
   const io = new Server(server, {
     cors: {
-      // origin: "https://x-career-06-team1-fe.as.r.appspot.com",
+      origin: "https://dangtrantien.github.io/berry-reactjs",
       // origin: "http://localhost:3000",
-      origin: "http://localhost:4200",
       methods: ["GET", "POST"],
       maxHttpBufferSize: 1e8,
     },
@@ -36,6 +35,10 @@ const WebSockets = function (server) {
 
     socket.on("comment", (data) => {
       io.emit("comment", data);
+    });
+
+    socket.on("upload", (data) => {
+      io.emit("upload", data);
     });
   });
 };

@@ -1,7 +1,7 @@
 const { workSpaceUpdateValidate } = require("../middleware/Validate.js");
 const WorkSpaceModel = require("../DAL/model/WorkSpaceModel");
 const UserModel = require("../DAL/model/UserModel");
-const upload = require("../middleware/Upload");
+const { upload } = require("../middleware/Upload");
 const fs = require("fs");
 const path = require("path");
 
@@ -63,6 +63,7 @@ class WorkSpaceController {
 
       let img = {
         name: uploadImage.name,
+        type: uploadImage.type,
         url: `https://x-career-06-team1-be.as.r.appspot.com/static/images/${uploadImage.name}`,
         // url: `http://localhost:3002/static/images/${uploadImage.name}`,
         data: fs.writeFile(
@@ -76,6 +77,7 @@ class WorkSpaceController {
 
       value.logo = {
         name: img.name,
+        type: img.type,
         data: img.url,
       };
     }

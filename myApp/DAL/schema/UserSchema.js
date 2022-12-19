@@ -19,6 +19,7 @@ const UserSchema = new Schema(
       type: Object,
       default: {
         name: "",
+        type: "",
         data: "",
       },
     },

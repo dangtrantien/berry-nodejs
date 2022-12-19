@@ -20,6 +20,7 @@ const WorkSpaceSchema = new Schema(
       type: Object,
       default: {
         name: "",
+        type: "",
         data: "",
       },
     },

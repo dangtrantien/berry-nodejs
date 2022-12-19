@@ -1,27 +1,10 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const ReplyMessage = Schema(
-  {
-    message: {
-      type: String,
-      required: true,
-    },
-    senderID: {
-      type: mongoose.ObjectId,
-      ref: "user",
-      required: true,
-    },
-  },
-  {
-    timestamps: true,
-  }
-);
-
 const CommentSchema = Schema(
   {
     message: {
-      type: String,
+      type: {},
       required: true,
     },
     senderID: {
@@ -33,30 +16,6 @@ const CommentSchema = Schema(
       type: mongoose.ObjectId,
       ref: "task",
       required: true,
-    },
-    reply: {
-      type: Array.of(ReplyMessage),
-    },
-    image: {
-      type: Object,
-      default: {
-        name: "",
-        data: "",
-      },
-    },
-    audio: {
-      type: Object,
-      default: {
-        name: "",
-        data: "",
-      },
-    },
-    document: {
-      type: Object,
-      default: {
-        name: "",
-        data: "",
-      },
     },
   },
   {

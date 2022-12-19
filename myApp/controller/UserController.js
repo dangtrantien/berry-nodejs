@@ -1,6 +1,6 @@
 const { userUpdateValidate } = require("../middleware/Validate");
 const UserModel = require("../DAL/model/UserModel");
-const upload = require("../middleware/Upload");
+const { upload } = require("../middleware/Upload");
 const fs = require("fs");
 const path = require("path");
 const bcrypt = require("bcryptjs");
@@ -74,6 +74,7 @@ class UserController {
 
       let img = {
         name: uploadImage.name,
+        type: uploadImage.type,
         url: `https://x-career-06-team1-be.as.r.appspot.com/static/images/${uploadImage.name}`,
         // url: `http://localhost:3002/static/images/${uploadImage.name}`,
         data: fs.writeFile(
@@ -87,6 +88,7 @@ class UserController {
 
       value.avatar = {
         name: img.name,
+        type: img.type,
         data: img.url,
       };
     }

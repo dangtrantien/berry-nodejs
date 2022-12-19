@@ -8,37 +8,16 @@ const TaskSchema = new Schema(
       type: String,
       required: true,
     },
-    describe: {
-      type: String,
-    },
-    status: {
-      type: Number,
-    },
     boardID: {
       type: mongoose.ObjectId,
       ref: "board",
       required: true,
     },
-    image: {
-      type: Object,
-      default: {
-        name: "",
-        data: "",
-      },
+    describe: {
+      type: String,
     },
-    audio: {
-      type: Object,
-      default: {
-        name: "",
-        data: "",
-      },
-    },
-    document: {
-      type: Object,
-      default: {
-        name: "",
-        data: "",
-      },
+    status: {
+      type: Number,
     },
     member: {
       type: Array.of(UserSchema),
