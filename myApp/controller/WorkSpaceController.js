@@ -65,7 +65,6 @@ class WorkSpaceController {
         name: uploadImage.name,
         type: uploadImage.type,
         url: `https://x-career-nodejs-bx4avucmoa-as.a.run.app/static/images/${uploadImage.name}`,
-        // url: `https://x-career-06-team1-be.as.r.appspot.com/static/images/${uploadImage.name}`,
         // url: `http://localhost:3002/static/images/${uploadImage.name}`,
         data: fs.writeFile(
           path.join(`./myApp/public/images/${uploadImage.name}`),
