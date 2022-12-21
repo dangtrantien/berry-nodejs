@@ -3,9 +3,10 @@ const { Server } = require("socket.io");
 const WebSockets = function (server) {
   const io = new Server(server, {
     cors: {
-      origin: "https://dangtrantien.github.io/berry-reactjs",
+      origin: "https://dangtrantien.github.io",
       // origin: "http://localhost:3000",
       methods: ["GET", "POST"],
+      credentials: true,
       maxHttpBufferSize: 1e8,
     },
   });
