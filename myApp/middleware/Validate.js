@@ -44,9 +44,7 @@ const taskUpdateValidate = (data) => {
     describe: Joi.string().allow(""),
     status: Joi.number().max(3),
     boardID: Joi.string(),
-    image: Joi.array(),
-    audio: Joi.array(),
-    document: Joi.array(),
+    day: Joi.object(),
     member: Joi.array(),
   });
 

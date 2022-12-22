@@ -19,6 +19,17 @@ const TaskSchema = new Schema(
     status: {
       type: Number,
     },
+    day: {
+      startTime: {
+        type: String,
+      },
+      expirationDate: {
+        type: String,
+      },
+      expirationTime: {
+        type: String,
+      },
+    },
     member: {
       type: Array.of(UserSchema),
     },
