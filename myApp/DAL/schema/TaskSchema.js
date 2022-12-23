@@ -29,6 +29,9 @@ const TaskSchema = new Schema(
       expirationTime: {
         type: String,
       },
+      expired: {
+        type: String,
+      },
     },
     member: {
       type: Array.of(UserSchema),
