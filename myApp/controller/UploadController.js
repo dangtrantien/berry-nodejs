@@ -15,7 +15,7 @@ class UploadController {
       let value = {
         name: uploadFile.name,
         type: uploadFile.type,
-        url: `https://x-career-nodejs-bx4avucmoa-as.a.run.app/static/images/${uploadFile.name}`,
+        url: `https://x-career-06-team1-be.onrender.com/static/images/${uploadFile.name}`,
         // url: `http://localhost:3002/static/images/${uploadFile.name}`,
         data: fs.writeFile(
           path.join(`./myApp/public/images/${uploadFile.name}`),
@@ -35,7 +35,7 @@ class UploadController {
       let value = {
         name: uploadFile.name,
         type: uploadFile.type,
-        url: `https://x-career-nodejs-bx4avucmoa-as.a.run.app/static/audios/${uploadFile.name}`,
+        url: `https://x-career-06-team1-be.onrender.com/static/audios/${uploadFile.name}`,
         // url: `http://localhost:3002/static/audios/${uploadFile.name}`,
         data: fs.writeFile(
           path.join(`./myApp/public/audios/${uploadFile.name}`),
@@ -55,7 +55,7 @@ class UploadController {
       let value = {
         name: uploadFile.name,
         type: uploadFile.type,
-        url: `https://x-career-nodejs-bx4avucmoa-as.a.run.app/static/documents/${uploadFile.name}`,
+        url: `https://x-career-06-team1-be.onrender.com/static/documents/${uploadFile.name}`,
         // url: `http://localhost:3002/static/documents/${uploadFile.name}`,
         data: fs.writeFile(
           path.join(`./myApp/public/documents/${uploadFile.name}`),
