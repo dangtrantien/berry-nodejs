@@ -3,7 +3,7 @@ const { Server } = require("socket.io");
 const WebSockets = function (server) {
   const io = new Server(server, {
     cors: {
-      origin: "https://berry.onrender.com",
+      origin: "https://berry-react.onrender.com",
       // origin: "http://localhost:3000",
       methods: ["GET", "POST"],
       credentials: true,
