@@ -2,6 +2,8 @@ const { Server } = require("socket.io");
 
 const WebSockets = function (server) {
   const io = new Server(server, {
+    pingInterval: 10000,
+    pingTimeout: 5000,
     cors: {
       origin: "https://berry-react.onrender.com",
       // origin: "http://localhost:3000",
