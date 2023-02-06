@@ -14,10 +14,6 @@ const WebSockets = function (server) {
   io.on("connection", (socket) => {
     console.log(`User connected: ${socket.id}`);
 
-    socket.on("disconnect", () => {
-      console.log(`User disconnected: ${socket.id}`);
-    });
-
     socket.on("user", (data) => {
       io.emit("user", data);
     });
@@ -40,6 +36,10 @@ const WebSockets = function (server) {
 
     socket.on("upload", (data) => {
       io.emit("upload", data);
+    });
+
+    socket.on("disconnect", () => {
+      console.log(`User disconnected: ${socket.id}`);
     });
   });
 };
